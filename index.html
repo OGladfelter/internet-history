@@ -20,7 +20,7 @@
     <!-- Facebook Opengraph -->
     <meta property="og:url" content="https://cultureplot.com/internet-history/" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Cultureplot | 90 Days Of My Internet History In One Graph" />
+    <meta property="og:title" content="90 Days Of My Internet History In One Graph" />
     <meta property="og:description" content="Where I Go On The Web And When"/>
 
     <meta property="og:image" content="http://cultureplot.com/img/web-history.png" />
@@ -41,7 +41,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
     <link rel="manifest" href="../favicon/site.webmanifest">
 
-    <link rel="stylesheet" href="style/style.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
 
   <meta charset="utf-8">
 </head>
@@ -66,11 +66,9 @@
 </div><!-- @end #main-wrapper -->
 
 <script src="https://d3js.org/d3.v5.js"></script>
-
-<script src="//d3plus.org/js/d3.js"></script>
-<script src="//d3plus.org/js/d3plus.js"></script>
 <script src="js/d3-3-5-5.min.js"></script>
-<script src="d3CheckBox.js"></script>
+
+<script src="js/d3CheckBox.js"></script>
 
 <script>
 
@@ -107,7 +105,7 @@ subtitles = ["Instructions","Barrage Of Morning Messages","Trying To Be Producti
 browsingData = []
 
 // importing data from csv and organizing it into list of lists
-d3.csv("web_browsing_full2.csv", function(d){
+d3.csv("data/data.csv", function(d){
       webBrowsingData = d;
       
       browsingStages = [[webBrowsingData[0].website2,webBrowsingData[0].weekDay,webBrowsingData[0].date3]]
@@ -307,12 +305,6 @@ rotatingText = svg2.append("text")
             .attr("id","rectResize")
             .text(paragraphs[0]);
 
-// Wrap the text in a rectangle.
-d3plus.textwrap()
-    .container(d3.select("#rectResize"))
-    .resize(true)
-    .draw();
-
 // Create Rotating Text Titles - No Need For Textbox
 subTitleText = svg2.append("text")
             .attr("x", (width + margin.left + margin.right)*.5)
@@ -363,122 +355,77 @@ function timer() {
     if (stage < 60){
       subTitleText.text(subtitles[9])
       rotatingText.text(paragraphs[9]);
-      d3plus.textwrap()
-      .container(d3.select("#rectResize"))
-      .resize(true)
-      .draw();
+      
     }
     else if (stage < 90){
       subTitleText.text(subtitles[10])
       rotatingText.text(paragraphs[10]);
-      d3plus.textwrap()
-      .container(d3.select("#rectResize"))
-      .resize(true)
-      .draw();
+      
     }
     else if (stage < 170){
       subTitleText.text(subtitles[11])
       rotatingText.text(paragraphs[11]);
-      d3plus.textwrap()
-      .container(d3.select("#rectResize"))
-      .resize(true)
-      .draw();
+      
     }
     else if (stage < 400){
       subTitleText.text("Notes and Acknowledgements")
       rotatingText.text(paragraphs[13]);
-      d3plus.textwrap()
-      .container(d3.select("#rectResize"))
-      .resize(true)
-      .draw();
+      
     }
     else if (stage < 570){
       subTitleText.text(subtitles[0])
       rotatingText.text(paragraphs[0]);
-      d3plus.textwrap()
-      .container(d3.select("#rectResize"))
-      .resize(true)
-      .draw();
+      
     }
     else if (stage < 600){
       subTitleText.text(subtitles[1])
       rotatingText.text(paragraphs[1]);
-      d3plus.textwrap()
-      .container(d3.select("#rectResize"))
-      .resize(true)
-      .draw();
+      
     }
     else if (stage < 660){
       subTitleText.text(subtitles[2])
       rotatingText.text(paragraphs[2]);
-      d3plus.textwrap()
-      .container(d3.select("#rectResize"))
-      .resize(true)
-      .draw();
+      
     }
     else if (stage < 780){
       subTitleText.text("Business As Usual")
       rotatingText.text(paragraphs[12]);
-      d3plus.textwrap()
-      .container(d3.select("#rectResize"))
-      .resize(true)
-      .draw();
+      
     }
     else if (stage < 990){
       subTitleText.text(subtitles[3])
       rotatingText.text(paragraphs[3]);
-      d3plus.textwrap()
-      .container(d3.select("#rectResize"))
-      .resize(true)
-      .draw();
+      
     }
     else if (stage < 1080){
       subTitleText.text(subtitles[4])
       rotatingText.text(paragraphs[4]);
-      d3plus.textwrap()
-      .container(d3.select("#rectResize"))
-      .resize(true)
-      .draw();
+      
     }
     else if (stage < 1110){
       subTitleText.text(subtitles[5])
       rotatingText.text(paragraphs[5]);
-      d3plus.textwrap()
-      .container(d3.select("#rectResize"))
-      .resize(true)
-      .draw();
+      
     }
     else if (stage < 1170){
       subTitleText.text(subtitles[6])
       rotatingText.text(paragraphs[6]);
-      d3plus.textwrap()
-      .container(d3.select("#rectResize"))
-      .resize(true)
-      .draw();
+      
     }
     else if (stage < 1320){
       subTitleText.text(subtitles[7])
       rotatingText.text(paragraphs[7]);
-      d3plus.textwrap()
-      .container(d3.select("#rectResize"))
-      .resize(true)
-      .draw();
+      
     }
     else if (stage < 1410){
       subTitleText.text(subtitles[8])
       rotatingText.text(paragraphs[8]);
-      d3plus.textwrap()
-      .container(d3.select("#rectResize"))
-      .resize(true)
-      .draw();
+      
     }
     else {
       subTitleText.text(subtitles[9])
       rotatingText.text(paragraphs[9]);
-      d3plus.textwrap()
-      .container(d3.select("#rectResize"))
-      .resize(true)
-      .draw();
+      
     }
     
 
@@ -725,7 +672,7 @@ otherSocialMediaLabel = svg.append("text")
             .attr("font-size",labelFontSize)
             .attr("font-weight","bold")
             .style("text-anchor", "middle")
-            .text("Social Media+")
+            .text("Social media")
             .attr("fill","#0077B5")
             .attr("id","otherSocialMedia");
 
@@ -761,7 +708,7 @@ workAppsLabel = svg.append("text")
             .attr("font-size",labelFontSize)
             .attr("font-weight","bold")
             .style("text-anchor", "middle")
-            .text("Work Apps")
+            .text("Work apps")
             .attr("id","workApps")
             .attr("fill","#00aeef");
 
@@ -773,7 +720,7 @@ githubLabel = svg.append("text")
             .attr("font-size",labelFontSize)
             .attr("font-weight","bold")
             .style("text-anchor", "middle")
-            .text("GitHub")
+            .text("Coding stuff")
             .attr("id","github")
             .attr("fill","#333");
 
@@ -1339,7 +1286,7 @@ d3.select("#chart").selectAll("circle").on("mouseover", function(d) {
       return tooltip.style("visibility", "visible").text("This group would have a lot more traffic if I included the dates I did my Christmas shopping");
     }
     else if (d3.select(this).attr("id") == "github"){
-      return tooltip.style("visibility", "visible").text("Also includes Stack Overflow, W3Schools, and FlowingData tutorials");
+      return tooltip.style("visibility", "visible").text("GitHub, Stack Overflow, W3Schools, and tutorials");
     }
     else if (d3.select(this).attr("id") == "google"){
       return tooltip.style("visibility", "visible").text("Exclusively search bar queries. I’m a curious guy. And also easily forget the URLs to other websites.");
