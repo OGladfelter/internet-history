@@ -1,26 +1,25 @@
-function IsMobileCard()
-  {
+function IsMobileCard() {
   var check =  false;
 
   (function(a){if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4))) check = true;})(navigator.userAgent||navigator.vendor||window.opera);
 
   return check;   
-  }
+}
   
 paragraphs = ["➀ Each dot represents one full 24-hour day of my internet history. ➁ Hover over any website label to get a more accurate description or example of how I use it. ➂ Hover over any dot to see what date it represents. ➃ Click on any dot to highlight it; click again to unhighlight. ➄ Use the blue buttons to adjust the speed of the graph and the checkboxes to hide/unhide dots by days of the week. ➅ The slider on the graph can be used to jump around to different times.",
-"Around now, I’m usually arriving at work and gearing up for the day. This involves reading any emails or Slack messages in my inbox, checking my calendar, and launching other work apps. If time allows, I also try to pop open my favorite news websites.",
-"By this hour, my day is usually in full swing if it’s a weekday and I’m likely switching back and forth between several websites. It’s rare that I’m online this early on the weekends, as Saturday and Sunday mornings are typically reserved for either long runs or sleeping in.",
-"This point represents my peak internet usage time. Out of 90 days, I was online 61 of them during this time period. During the week, this is when I get back from lunch (if I took a break) and get busy wrapping for the day. On the weekend, this is around the time I finish my morning run and am finally ready to unwind. Either way, it’s a time of day I’m likely to be online.",
-"Work is wrapping up for the day, leading to a big drop in activity on Google Apps, Work Apps, and Slack. It’s also a time of day I’m likely to be offline, as I’m commuting or partaking in after work activities.",
-"Chaos tends to be the only pattern to my internet activity here. This is the time of day I’m logging off my work computer and switching to my personal laptop, meaning I’m free to check social media, watch Netflix or YouTube, or mindlessly browse.",
-"From 9:00 AM to 6:00 PM, G Suite was used more than any other group (excluding the ‘Off’ category). This current hour marks the point at which G Suite gets dethroned - by YouTube. So swapping out Google for...more Google. YouTube remains the most dominant group for the next four hours.",
-"This is the time of day I’m most likely to be on Facebook. I suspected all of my social media peak times would match up, but surprisingly, I don’t use Twitter nearly as much during this time period - I’m most likely to be tweeting 10:00-11:00 PM, at 1:30 PM, and 11:00 AM. Why I feel comfortable sneaking onto Twitter during the work day but not Facebook is anyone’s guess.",
-"Here’s where Netflix and Youtube both get their most visitation from me. It’s no coincidence that the most passive websites are the most popular at the time I might also be performing my end of day rituals (meal prep, ironing clothes, teeth brushing). In other words, I can have Netflix or YouTube videos playing in the background while I’m doing chores.",
-"Here I’m revealing my status as a night owl. Wikipedia, Netflix, Youtube, social media are all still getting activity while many people might be fast asleep already. You might notice I typically try to get to bed by midnight, although you’ll also see I don’t always make that mark - especially when I’m trapped in a fascinating Wikipedia Loop.",
-"92% of the time I’m offline by 1:00am. The exceptions are usually Saturday nights (technically early morning Sundays), although that’s not always the case.",
-"Staying up late on a Saturday night to surf the web isn’t all that interesting. But one can only wonder what Netflix show was so captivating that it kept me up past 2:00am on a Thursday morning...just kidding, I checked the data - it was The Office.",
-"Working lunches are extremely common at my company, so I’m not offline at this hour nearly as much as one might expect. Granted, even if I’m not getting away from my desk, I can still take breaks, which explains the increased miscellaneous and news traffic, as well as the YouTube and Amazon usage.",
-"This entire project was inspired and heavily influenced by Nathan Yu's 'A Day in the Life of Americans.' If you’re interested in learning more about data visualization, I highly recommend his tutorials. Additionally, the time slider was created using a library written by John Walley and the checkboxes below were created using a library written by Seimei Matsusaki."]
+    "Around now, I’m usually arriving at work and gearing up for the day. This involves reading any emails or Slack messages in my inbox, checking my calendar, and launching other work apps. If time allows, I also try to pop open my favorite news websites.",
+    "By this hour, my day is usually in full swing if it’s a weekday and I’m likely switching back and forth between several websites. It’s rare that I’m online this early on the weekends, as Saturday and Sunday mornings are typically reserved for either long runs or sleeping in.",
+    "This point represents my peak internet usage time. Out of 90 days, I was online 61 of them during this time period. During the week, this is when I get back from lunch (if I took a break) and get busy wrapping for the day. On the weekend, this is around the time I finish my morning run and am finally ready to unwind. Either way, it’s a time of day I’m likely to be online.",
+    "Work is wrapping up for the day, leading to a big drop in activity on Google Apps, Work Apps, and Slack. It’s also a time of day I’m likely to be offline, as I’m commuting or partaking in after work activities.",
+    "Chaos tends to be the only pattern to my internet activity here. This is the time of day I’m logging off my work computer and switching to my personal laptop, meaning I’m free to check social media, watch Netflix or YouTube, or mindlessly browse.",
+    "From 9:00 AM to 6:00 PM, G Suite was used more than any other group (excluding the ‘Off’ category). This current hour marks the point at which G Suite gets dethroned - by YouTube. So swapping out Google for...more Google. YouTube remains the most dominant group for the next four hours.",
+    "This is the time of day I’m most likely to be on Facebook. I suspected all of my social media peak times would match up, but surprisingly, I don’t use Twitter nearly as much during this time period - I’m most likely to be tweeting 10:00-11:00 PM, at 1:30 PM, and 11:00 AM. Why I feel comfortable sneaking onto Twitter during the work day but not Facebook is anyone’s guess.",
+    "Here’s where Netflix and Youtube both get their most visitation from me. It’s no coincidence that the most passive websites are the most popular at the time I might also be performing my end of day rituals (meal prep, ironing clothes, teeth brushing). In other words, I can have Netflix or YouTube videos playing in the background while I’m doing chores.",
+    "Here I’m revealing my status as a night owl. Wikipedia, Netflix, Youtube, social media are all still getting activity while many people might be fast asleep already. You might notice I typically try to get to bed by midnight, although you’ll also see I don’t always make that mark - especially when I’m trapped in a fascinating Wikipedia Loop.",
+    "92% of the time I’m offline by 1:00am. The exceptions are usually Saturday nights (technically early morning Sundays), although that’s not always the case.",
+    "Staying up late on a Saturday night to surf the web isn’t all that interesting. But one can only wonder what Netflix show was so captivating that it kept me up past 2:00am on a Thursday morning...just kidding, I checked the data - it was The Office.",
+    "Working lunches are extremely common at my company, so I’m not offline at this hour nearly as much as one might expect. Granted, even if I’m not getting away from my desk, I can still take breaks, which explains the increased miscellaneous and news traffic, as well as the YouTube and Amazon usage.",
+    "This entire project was inspired and heavily influenced by Nathan Yu's 'A Day in the Life of Americans.' If you’re interested in learning more about data visualization, I highly recommend his tutorials. Additionally, the time slider was created using a library written by John Walley and the checkboxes below were created using a library written by Seimei Matsusaki."]
 
 if (IsMobileCard()){ // if mobile is detected, we need to tweak the instructions
   paragraphs[0] = "➀ Each dot represents one full 24-hour day of my internet history. ➁ Tap any dot to highlight it and see what date it represents; tap again to unhighlight. ➂ Use the blue buttons to adjust the speed of the graph and the checkboxes to hide/unhide dots by days of the week. ➃ The slider on the graph can be used to jump around to different times.";
@@ -31,7 +30,7 @@ subtitles = ["Instructions","Barrage Of Morning Messages","Trying To Be Producti
 browsingData = []
 
 // importing data from csv and organizing it into list of lists
-d3.csv("data/data.csv", function(d){
+d3.csv("data/data.csv", function(d) {
       webBrowsingData = d;
       
       browsingStages = [[webBrowsingData[0].website2,webBrowsingData[0].weekDay,webBrowsingData[0].date3]]
@@ -50,7 +49,7 @@ d3.csv("data/data.csv", function(d){
 
     // once the data has been imported and organized, begin the process
     doIt();
-    })
+});
 
 // create array of time stamp strings for time label
 var x = 1; //minutes interval
