@@ -19,13 +19,11 @@ paragraphs = ["➀ Each dot represents one full 24-hour day of my internet histo
     "92% of the time I’m offline by 1:00am. The exceptions are usually Saturday nights (technically early morning Sundays), although that’s not always the case.",
     "Staying up late on a Saturday night to surf the web isn’t all that interesting. But one can only wonder what Netflix show was so captivating that it kept me up past 2:00am on a Thursday morning...just kidding, I checked the data - it was The Office.",
     "Working lunches are extremely common at my company, so I’m not offline at this hour nearly as much as one might expect. Granted, even if I’m not getting away from my desk, I can still take breaks, which explains the increased miscellaneous and news traffic, as well as the YouTube and Amazon usage.",
-    "This entire project was inspired and heavily influenced by Nathan Yu's 'A Day in the Life of Americans.' If you’re interested in learning more about data visualization, I highly recommend his tutorials. Additionally, the time slider was created using a library written by John Walley and the checkboxes below were created using a library written by Seimei Matsusaki."]
+    "This entire project was inspired and heavily influenced by Nathan Yu's 'A Day in the Life of Americans.' If you’re interested in learning more about data visualization, I highly recommend his tutorials."]
 
 if (IsMobileCard()){ // if mobile is detected, we need to tweak the instructions
   paragraphs[0] = "➀ Each dot represents one full 24-hour day of my internet history. ➁ Tap any dot to highlight it and see what date it represents; tap again to unhighlight. ➂ Use the blue buttons to adjust the speed of the graph and the checkboxes to hide/unhide dots by days of the week. ➃ The slider on the graph can be used to jump around to different times.";
 }
-
-subtitles = ["Instructions","Barrage Of Morning Messages","Trying To Be Productive", "Peak Internet Usage", "Wrapping Up Work", "Getting Home", "Google Takes The Iron Throne", "Prime Social Media Time?", "Listening But Not Always Watching", "No Sleep Till Brooklyn", "Offline For The Night...Usually", "This Is Only Moderately Embarrassing"]
 
 browsingData = []
 
@@ -105,18 +103,6 @@ var svg = d3.select("#chart").append("svg")
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
     .attr("align","center");
-
-var svg2 = d3.select("#chart").append("svg")
-    .attr("width", width)
-    .attr("height", height)
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-    .attr("align","center");
-
-var bottomGroupsHeight = height * .64
-var topGroupsHeight = height * .16
-var offGroupsHeight = height * .4
-
 
 // Foci
 var foci = {
@@ -203,44 +189,9 @@ timeLabel = svg.append("text")
             .text("Loading...");
 
 
-// Rotating Text & Text Box -----------------------------------------------------------------------
-// Setting dimensions for the textbox in svg2 [which is a rect and text with same x and y coordinates + d3plus.textwrap()]
-var textX = .1
-var textY = .05;
-var textboxWidth = (width * .9) - (width * .1)
-var textboxHeight = (height * .7) - (height * .3)
-
-// Draw the textbox
-svg2.append("rect")
-            .attr("x", (width + margin.left + margin.right)*textX)
-            .attr("y", (height * textY))
-            .attr("height",textboxHeight)
-            .attr("width",textboxWidth)
-            .style("fill","transparent")
-
-// Create Rotating Text, placed and then wrapped inside the textbox
-rotatingText = svg2.append("text")
-            .attr("x", (width + margin.left + margin.right)*textX)
-            .attr("y", (height * textY))
-            .attr('text-alignment','center')
-            .attr("font-size","20px")
-            .style("text-anchor", "middle")
-            .attr("fill","black")
-            .attr("class", "wrap")
-            .attr("id","rectResize")
-            .text(paragraphs[0]);
-
-// Create Rotating Text Titles - No Need For Textbox
-subTitleText = svg2.append("text")
-            .attr("x", (width + margin.left + margin.right)*.5)
-            .attr("y", (height * .025))
-            .attr('text-alignment','center')
-            .attr("font-size","30px")
-            .attr("font-style","italic")
-            .style("text-anchor", "middle")
-            .attr("font-weight","bold")
-            .attr("fill","black")
-            .text("Instructions");
+// Rotating Text elements -----------------------------------------------------------------------
+rotatingText = document.getElementById("paragraph");
+subTitleText = document.getElementById("subtitle");
 
 ////////////////////////////////////////////////////////////////////
 
@@ -250,9 +201,6 @@ stage = 540; // starts at 9:00 AM
 secTillNext = 1000;
 
 function timer() {
-    
-
-
     // as we move into subsequent stage, update location of every node using a for loop
     for (panelist = 0; panelist < browsingData.length; panelist++) { 
       // Update node
@@ -267,100 +215,93 @@ function timer() {
       }
       else {
         nodes[panelist].cx = foci[browsingData[panelist][stage][0]].x;
-    	nodes[panelist].cy = foci[browsingData[panelist][stage][0]].y;
-    	nodes[panelist].choice = browsingData[panelist][stage][0];
-
-        
+        nodes[panelist].cy = foci[browsingData[panelist][stage][0]].y;
+        nodes[panelist].choice = browsingData[panelist][stage][0];
       }
     }
 
     timeLabel.text(timeList[stage]);
     timeSlider.value = stage;
-
-    if (stage < 60){
-      subTitleText.text(subtitles[9])
-      rotatingText.text(paragraphs[9]);
+    if (stage < 60) {
+      subTitleText.innerHTML = "No Sleep Till Brooklyn";
+      rotatingText.innerHTML = paragraphs[9];
       
     }
     else if (stage < 90){
-      subTitleText.text(subtitles[10])
-      rotatingText.text(paragraphs[10]);
+      subTitleText.innerHTML = "Offline For The Night...Usually";
+      rotatingText.innerHTML =(paragraphs[10]);
       
     }
     else if (stage < 170){
-      subTitleText.text(subtitles[11])
-      rotatingText.text(paragraphs[11]);
+      subTitleText.innerHTML = "This Is Only Moderately Embarrassing";
+      rotatingText.innerHTML =(paragraphs[11]);
       
     }
     else if (stage < 400){
-      subTitleText.text("Notes and Acknowledgements")
-      rotatingText.text(paragraphs[13]);
+      subTitleText.innerHTML = "Acknowledgements";
+      rotatingText.innerHTML =(paragraphs[13]);
       
     }
     else if (stage < 570){
-      subTitleText.text(subtitles[0])
-      rotatingText.text(paragraphs[0]);
+      subTitleText.innerHTML = "Instructions";
+      rotatingText.innerHTML =(paragraphs[0]);
       
     }
     else if (stage < 600){
-      subTitleText.text(subtitles[1])
-      rotatingText.text(paragraphs[1]);
+      subTitleText.innerHTML = "Barrage Of Morning Messages";
+      rotatingText.innerHTML =(paragraphs[1]);
       
     }
     else if (stage < 660){
-      subTitleText.text(subtitles[2])
-      rotatingText.text(paragraphs[2]);
+      subTitleText.innerHTML = "Trying To Be Productive";
+      rotatingText.innerHTML =(paragraphs[2]);
       
     }
     else if (stage < 780){
-      subTitleText.text("Business As Usual")
-      rotatingText.text(paragraphs[12]);
+      subTitleText.innerHTML =("Business As Usual")
+      rotatingText.innerHTML =(paragraphs[12]);
       
     }
     else if (stage < 990){
-      subTitleText.text(subtitles[3])
-      rotatingText.text(paragraphs[3]);
+      subTitleText.innerHTML = "Peak Internet Usage";
+      rotatingText.innerHTML =(paragraphs[3]);
       
     }
     else if (stage < 1080){
-      subTitleText.text(subtitles[4])
-      rotatingText.text(paragraphs[4]);
+      subTitleText.innerHTML = "Wrapping Up Work";
+      rotatingText.innerHTML =(paragraphs[4]);
       
     }
     else if (stage < 1110){
-      subTitleText.text(subtitles[5])
-      rotatingText.text(paragraphs[5]);
+      subTitleText.innerHTML = "Getting Home";
+      rotatingText.innerHTML =(paragraphs[5]);
       
     }
     else if (stage < 1170){
-      subTitleText.text(subtitles[6])
-      rotatingText.text(paragraphs[6]);
+      subTitleText.innerHTML = "Google Takes The Iron Throne";
+      rotatingText.innerHTML =(paragraphs[6]);
       
     }
     else if (stage < 1320){
-      subTitleText.text(subtitles[7])
-      rotatingText.text(paragraphs[7]);
+      subTitleText.innerHTML = "Prime Social Media Time?";
+      rotatingText.innerHTML =(paragraphs[7]);
       
     }
     else if (stage < 1410){
-      subTitleText.text(subtitles[8])
-      rotatingText.text(paragraphs[8]);
+      subTitleText.innerHTML = "Listening But Not Always Watching";
+      rotatingText.innerHTML =(paragraphs[8]);
       
     }
     else {
-      subTitleText.text(subtitles[9])
-      rotatingText.text(paragraphs[9]);
-      
+      subTitleText.innerHTML = "No Sleep Till Brooklyn";
+      rotatingText.innerHTML =(paragraphs[9]);
     }
     
-
     ////////////////////////////////////////////////////////
     
     // get the nodes moving
     force.resume();
-    
     stage++;
-    
     // once we hit the end of the day (and data), reset
     if (stage > browsingData[0].length - 1) {
         stage = 0
@@ -369,16 +310,13 @@ function timer() {
     else if (stage == 220){
         stage = 510;
     }
-
     // Run it again in a few seconds.
     timeout = setTimeout(timer, secTillNext);  
 }
 
 timeout = setTimeout(timer, 200);
 
-//
 // Force-directed boiler plate functions
-//
 
 movementSpeed = .5;
 
@@ -393,7 +331,6 @@ function tick(e) {
     ;
 }
 
-
 // Move nodes toward cluster focus.
 function gravity(alpha) {
   return function(d) {
@@ -401,8 +338,6 @@ function gravity(alpha) {
     d.x += (foci[d.choice].x - d.x) * alpha;
   };
 }
-
-
 
 // Resolve collisions between nodes.
 function collide(alpha) {
@@ -433,7 +368,6 @@ function collide(alpha) {
 }    
 
 // Labels and Title ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 if (document.getElementById('chart').clientWidth < 1500){
     var labelFontSize = "16px";
 }
@@ -669,493 +603,96 @@ document.getElementById("timeSlider").style.transform = "translate(" + x_diff + 
                     
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-
-// BUTTONS
-
-if (IsMobileCard()){
-  var buttonsBorderHeightRatio = .4; //in side by side view, .38 will center box with middle of svg1
-
-}
-else{
-  var buttonsBorderHeightRatio = .66; //in side by side view, .38 will center box with middle of svg1
+// functions for buttons to control speed of step progression~~~~~~~~~~~~~~
+function speedChange(stepDelay, speed) {
+  secTillNext = stepDelay;
+  movementSpeed = speed;
+  clearTimeout(timeout);
+  timeout = setTimeout(timer, 1000);
 }
 
-var buttonsBorderHeight = height * buttonsBorderHeightRatio;
-buttonWidth = 80;
-buttonHeight = 40;
+var paused = 0;
+var buttons = [...document.getElementsByTagName("button")];
 
-var speedButtonHeights = height * (buttonsBorderHeightRatio + .025);
-var speedButtonTextHeights = height * (buttonsBorderHeightRatio + .025) + 25;
-
-// Create buttons to control speed of step progression~~~~~~~~~~~~~~
-
-var buttonsBorder = svg2.append("rect")
-    .attr("x", width*(1/8)-width*(1/16))
-    .attr("y", buttonsBorderHeight)
-    //.attr("rx",10)
-    //.attr("ry",10)
-    .attr("height", (height * .36) - (height * .12))
-    .attr("width", width*(7/8))
-    .style("stroke","gray")
-    .style("stroke-width",1)
-    .style("pointer-events","none")
-    .style("fill", '#E7EDEB');
-
-var slowButton = svg2.append("rect")
-    .attr("x", width*(1/6)-buttonWidth/2)
-    .attr("y", speedButtonHeights)
-    .attr("rx",10)
-    .attr("ry",10)
-    .attr("height", buttonHeight)
-    .attr("width", buttonWidth)
-    .style("stroke","#00aeef")
-    .style("fill", '#baeaf9')
-    .style("cursor","pointer")
-    .attr("id", "slow");
-
-svg2.append("text")
-            .attr("x", width*(1/6))
-            .attr("y", speedButtonTextHeights)
-            .attr('text-alignment','center')
-            .attr("font-size","20px")
-            .style("text-anchor", "middle")
-            .text("Slow")
-            .style("cursor","pointer")
-            .style("pointer-events","none");
-            
-var normalButton = svg2.append("rect")
-    .attr("x", width*(2/6)-buttonWidth/2)
-    .attr("y", speedButtonHeights)
-    .attr("rx",10)
-    .attr("ry",10)
-    .attr("height", buttonHeight)
-    .attr("width", buttonWidth)
-    .style("stroke","#00aeef")
-    .style("fill", '#00aeef')
-    .style("cursor","pointer")
-    .attr("id", "normal");
-
-svg2.append("text")
-            .attr("x", width*(2/6))
-            .attr("y", speedButtonTextHeights)
-            .attr('text-alignment','center')
-            .attr("font-size","20px")
-            .style("text-anchor", "middle")
-            .text("Normal")
-            .style("cursor","pointer")
-            .style("pointer-events","none");
-
-var fastButton = svg2.append("rect")
-    .attr("x", (width + margin.left + margin.right)/2-buttonWidth/2)
-    .attr("y", speedButtonHeights)
-    .attr("rx",10)
-    .attr("ry",10)
-    .attr("height", buttonHeight)
-    .attr("width", buttonWidth)
-    .style("stroke","#00aeef")
-    .style("fill", '#baeaf9')
-    .style("cursor","pointer")
-    .attr("id", "fast");
-
-svg2.append("text")
-            .attr("x", (width/2))
-            .attr("y", speedButtonTextHeights)
-            .attr('text-alignment','center')
-            .attr("font-size","20px")
-            .style("text-anchor", "middle")
-            .text("Fast")
-            .style("cursor","pointer")
-            .style("pointer-events","none");
-
-var pauseButton = svg2.append("rect")
-    .attr("x", width * (4/6)-buttonWidth/2)
-    .attr("y", speedButtonHeights)
-    .attr("rx",10)
-    .attr("ry",10)
-    .attr("height", buttonHeight)
-    .attr("width", buttonWidth)
-    .style("stroke","#00aeef")
-    .style("fill", '#baeaf9')
-    .style("cursor","pointer")
-    .attr("id", "pause");
-
-svg2.append("text")
-            .attr("x", width*4/6)
-            .attr("y", speedButtonTextHeights)
-            .attr('text-alignment','center')
-            .attr("font-size","20px")
-            .style("text-anchor", "middle")
-            .text("Pause")
-            .style("cursor","pointer")
-            .style("pointer-events","none");
-
-var FFButton = svg2.append("rect")
-    .attr("x", width*(5/6)-buttonWidth/2)
-    .attr("y", speedButtonHeights)
-    .attr("rx",10)
-    .attr("ry",10)
-    .attr("height", buttonHeight)
-    .attr("width", buttonWidth)
-    .style("stroke","#00aeef")
-    .style("fill", '#baeaf9')
-    .style("cursor","pointer")
-    .attr("id", "fastForward");
-
-svg2.append("text")
-            .attr("x", width*(5/6))
-            .attr("y", speedButtonTextHeights)
-            .attr('text-alignment','center')
-            .attr("font-size","20px")
-            //.attr("font-weight","bold")
-            .style("text-anchor", "middle")
-            .text("➤➤")
-            .style("cursor","pointer")
-            .style("pointer-events","none");
-
-
-/* Function called when speed buttons are activated*/
-d3.select("#chart").selectAll("rect").on("click", function() {
-  
-  //See which p was clicked
-  var textID = d3.select(this).attr("id");
-
-  // speed buttons below
-  if (textID == "slow") {
-      secTillNext = 1000;
-      movementSpeed = .5;
-      clearTimeout(timeout);
-      timeout = setTimeout(timer, 1000);
-      pauseButton.style("fill","#baeaf9");
-      normalButton.style("fill","#baeaf9");
-      fastButton.style("fill","#baeaf9");
-      FFButton.style("fill","#baeaf9");
-      d3.select(this).style("fill","#00aeef");
+document.getElementById("slow").addEventListener("click", function() {
+  speedChange(1000, 0.25);
+  buttons.forEach(button => button.style.backgroundColor = "#baeaf9");
+  this.style.backgroundColor = "#00aeef";
+});
+document.getElementById("normal").addEventListener("click", function() {
+  speedChange(500, 0.75);
+  buttons.forEach(button => button.style.backgroundColor = "#baeaf9");
+  this.style.backgroundColor = "#00aeef";
+});
+document.getElementById("fast").addEventListener("click", function() {
+  speedChange(250, 1);
+  buttons.forEach(button => button.style.backgroundColor = "#baeaf9");
+  this.style.backgroundColor = "#00aeef";
+});
+document.getElementById("FF").addEventListener("click", function() {
+  speedChange(50, 4);
+  buttons.forEach(button => button.style.backgroundColor = "#baeaf9");
+  this.style.backgroundColor = "#00aeef";
+});
+document.getElementById("pause").addEventListener("click", function() {
+  if (paused == 0) { // currently not paused, so pause it
+    clearTimeout(timeout);
+    paused = 1;
+    buttons.forEach(button => button.style.backgroundColor = "#baeaf9");
+    this.style.backgroundColor = "#00aeef";
   }
-  else if (textID == "normal") {
-      secTillNext = 500;
-      movementSpeed = .75;
-      clearTimeout(timeout)
-      timeout = setTimeout(timer, 500);
-      pauseButton.style("fill","#baeaf9");
-      slowButton.style("fill","#baeaf9");
-      fastButton.style("fill","#baeaf9");
-      FFButton.style("fill","#baeaf9");
-      d3.select(this).style("fill","#00aeef");
+  else {
+    speedChange(500, 0.75); // already paused, so unpause it and resume at normal speed
+    paused = 0;
+    buttons.forEach(button => button.style.backgroundColor = "#baeaf9");
+    document.getElementById("normal").style.backgroundColor = "#00aeef";
   }
-  else if (textID == "fast") {
-      secTillNext = 250;
-      movementSpeed = 1
-      clearTimeout(timeout)
-      timeout = setTimeout(timer, 100);
-      pauseButton.style("fill","#baeaf9");
-      normalButton.style("fill","#baeaf9");
-      slowButton.style("fill","#baeaf9");
-      FFButton.style("fill","#baeaf9");
-      d3.select(this).style("fill","#00aeef");
-  }
-  else if (textID == "pause") {
-    if (d3.select(this).style("fill") == "rgb(186, 234, 249)"){ // currently not paused, so pause it
-      clearTimeout(timeout)
-      slowButton.style("fill","#baeaf9");
-      normalButton.style("fill","#baeaf9");
-      fastButton.style("fill","#baeaf9");
-      FFButton.style("fill","#baeaf9");
-      d3.select(this).style("fill","#00aeef");
-    }
-    else{ // already paused, so unpause it and resume at normal speed
-      secTillNext = 1000;
-      movementSpeed = .5;
-      clearTimeout(timeout)
-      timeout = setTimeout(timer, 500);
-      normalButton.style("fill","#00aeef");
-      slowButton.style("fill","#baeaf9");
-      fastButton.style("fill","#baeaf9");
-      FFButton.style("fill","#baeaf9");
-      d3.select(this).style("fill","#baeaf9");
-    }
-  }
-  else if (textID == "fastForward") {
-      secTillNext = 50;
-      movementSpeed = 4
-      clearTimeout(timeout)
-      timeout = setTimeout(timer, 100);
-      pauseButton.style("fill","#baeaf9");
-      normalButton.style("fill","#baeaf9");
-      slowButton.style("fill","#baeaf9");
-      fastButton.style("fill","#baeaf9");
-      d3.select(this).style("fill","#00aeef");
-}
 });
 
 // functions for check boxes
-
 var filteredOpacity = .15;
 var filteredColor = "#e4e8eb";
 
-mondayFilter = function () {
-      if (mondayCheckBox.checked()){ // The box is CHECKED, uncheck it
-        for (panelist = 0; panelist < browsingData.length; panelist++) { 
-          // Check if the day matches the button
-          if (browsingData[panelist][0][1] == "Monday") {
-            nodes[panelist].id[0] = foci[browsingData[panelist][stage-1][0]].color; // save the color to their ID, which will change the color in the next stage
-            nodes[panelist].id[1] = .5; // return to full opacity
-          } 
+var checkboxes = document.querySelectorAll("input[type='checkbox']");
+checkboxes.forEach(checkbox => checkbox.addEventListener("change", function() {
+    highlightByDay(this.id);
+  }
+));
+
+function highlightByDay(weekday) {
+  if (document.getElementById(weekday).checked){ // The box is CHECKED, uncheck it
+    for (panelist = 0; panelist < browsingData.length; panelist++) { 
+      // Check if the day matches the button
+      if (browsingData[panelist][0][1] == weekday) {
+        nodes[panelist].id[0] = foci[browsingData[panelist][stage-1][0]].color; // save the color to their ID, which will change the color in the next stage
+        nodes[panelist].id[1] = .5; // return to full opacity
+      } 
+    }
+  }
+  else { // The box is UNCHECKED, turn check it
+    for (panelist = 0; panelist < browsingData.length; panelist++) { 
+      // Check if the day matches the button
+        if (browsingData[panelist][0][1] == weekday) {
+          nodes[panelist].id[0] = filteredColor;
+          nodes[panelist].id[1] = filteredOpacity;
         }
-      }
-      else { // The box is UNCHECKED, turn check it
-        for (panelist = 0; panelist < browsingData.length; panelist++) { 
-          // Check if the day matches the button
-            if (browsingData[panelist][0][1] == "Monday") {
-              nodes[panelist].id[0] = filteredColor;
-              nodes[panelist].id[1] = filteredOpacity;
-            }
-        }
-      }   
+    }
+  }   
 };
 
-tuesdayFilter = function () {
-      if (tuesdayCheckBox.checked()){ // The box is CHECKED, uncheck it
-        for (panelist = 0; panelist < browsingData.length; panelist++) { 
-          // Check if the day matches the button
-          if (browsingData[panelist][0][1] == "Tuesday") {
-            nodes[panelist].id[0] = foci[browsingData[panelist][stage-1][0]].color; // save the color to their ID, which will change the color in the next stage
-            nodes[panelist].id[1] = .5; // return to full opacity
-          } 
-        }
-      }
-      else { // The box is UNCHECKED, turn check it
-        for (panelist = 0; panelist < browsingData.length; panelist++) { 
-          // Check if the day matches the button
-            if (browsingData[panelist][0][1] == "Tuesday") {
-              nodes[panelist].id[0] = filteredColor;
-              nodes[panelist].id[1] = filteredOpacity;
-            }
-        }
-      }   
-};
-
-wednesdayFilter = function () {
-      if (wednesdayCheckBox.checked()){ // The box is CHECKED, uncheck it
-        for (panelist = 0; panelist < browsingData.length; panelist++) { 
-          // Check if the day matches the button
-          if (browsingData[panelist][0][1] == "Wednesday") {
-            nodes[panelist].id[0] = foci[browsingData[panelist][stage-1][0]].color; // save the color to their ID, which will change the color in the next stage
-            nodes[panelist].id[1] = .5; // return to full opacity
-          } 
-        }
-      }
-      else { // The box is UNCHECKED, turn check it
-        for (panelist = 0; panelist < browsingData.length; panelist++) { 
-          // Check if the day matches the button
-            if (browsingData[panelist][0][1] == "Wednesday") {
-              nodes[panelist].id[0] = filteredColor;
-              nodes[panelist].id[1] = filteredOpacity;
-            }
-        }
-      }   
-};
-
-thursdayFilter = function () {
-      if (thursdayCheckBox.checked()){ // The box is CHECKED, uncheck it
-        for (panelist = 0; panelist < browsingData.length; panelist++) { 
-          // Check if the day matches the button
-          if (browsingData[panelist][0][1] == "Thursday") {
-            nodes[panelist].id[0] = foci[browsingData[panelist][stage-1][0]].color; // save the color to their ID, which will change the color in the next stage
-            nodes[panelist].id[1] = .5; // return to full opacity
-          } 
-        }
-      }
-      else { // The box is UNCHECKED, turn check it
-        for (panelist = 0; panelist < browsingData.length; panelist++) { 
-          // Check if the day matches the button
-            if (browsingData[panelist][0][1] == "Thursday") {
-              nodes[panelist].id[0] = filteredColor;
-              nodes[panelist].id[1] = filteredOpacity;
-            }
-        }
-      }   
-};
-
-fridayFilter = function () {
-      if (fridayCheckBox.checked()){ // The box is CHECKED, uncheck it
-        for (panelist = 0; panelist < browsingData.length; panelist++) { 
-          // Check if the day matches the button
-          if (browsingData[panelist][0][1] == "Friday") {
-            nodes[panelist].id[0] = foci[browsingData[panelist][stage-1][0]].color; // save the color to their ID, which will change the color in the next stage
-            nodes[panelist].id[1] = .5; // return to full opacity
-          } 
-        }
-      }
-      else { // The box is UNCHECKED, turn check it
-        for (panelist = 0; panelist < browsingData.length; panelist++) { 
-          // Check if the day matches the button
-            if (browsingData[panelist][0][1] == "Friday") {
-              nodes[panelist].id[0] = filteredColor;
-              nodes[panelist].id[1] = filteredOpacity;
-            }
-        }
-      }   
-};
-
-saturdayFilter = function () {
-      if (saturdayCheckBox.checked()){ // The box is CHECKED, uncheck it
-        for (panelist = 0; panelist < browsingData.length; panelist++) { 
-          // Check if the day matches the button
-          if (browsingData[panelist][0][1] == "Saturday") {
-            nodes[panelist].id[0] = foci[browsingData[panelist][stage-1][0]].color; // save the color to their ID, which will change the color in the next stage
-            nodes[panelist].id[1] = .5; // return to full opacity
-          } 
-        }
-      }
-      else { // The box is UNCHECKED, turn check it
-        for (panelist = 0; panelist < browsingData.length; panelist++) { 
-          // Check if the day matches the button
-            if (browsingData[panelist][0][1] == "Saturday") {
-              nodes[panelist].id[0] = filteredColor;
-              nodes[panelist].id[1] = filteredOpacity;
-            }
-        }
-      }   
-};
-
-sundayFilter = function () {
-      if (sundayCheckBox.checked()){ // The box is CHECKED, uncheck it
-        for (panelist = 0; panelist < browsingData.length; panelist++) { 
-          // Check if the day matches the button
-          if (browsingData[panelist][0][1] == "Sunday") {
-            nodes[panelist].id[0] = foci[browsingData[panelist][stage-1][0]].color; // save the color to their ID, which will change the color in the next stage
-            nodes[panelist].id[1] = .5; // return to full opacity
-          } 
-        }
-      }
-      else { // The box is UNCHECKED, turn check it
-        for (panelist = 0; panelist < browsingData.length; panelist++) { 
-          // Check if the day matches the button
-            if (browsingData[panelist][0][1] == "Sunday") {
-              nodes[panelist].id[0] = filteredColor;
-              nodes[panelist].id[1] = filteredOpacity;
-            }
-        }
-      }   
-};
-
-// check boxes to filter dots by day of week
-
-var checkBoxSize = 35;
-
-var dayButtonTextHeights = height * (buttonsBorderHeightRatio+.145);
-var checkBoxHeights = height * (buttonsBorderHeightRatio+.155);
-var dayButtonFontSize = "18px"
-
-mondayCheckBox = new d3CheckBox()
-tuesdayCheckBox = new d3CheckBox()
-wednesdayCheckBox = new d3CheckBox()
-thursdayCheckBox = new d3CheckBox()
-fridayCheckBox = new d3CheckBox()
-saturdayCheckBox = new d3CheckBox()
-sundayCheckBox = new d3CheckBox()
-
-mondayCheckBox.size(checkBoxSize).x(width*(1/8)-checkBoxSize/2).y(checkBoxHeights).markStrokeWidth(4.5).boxStrokeWidth(1).checked(true).clickEvent(mondayFilter)
-tuesdayCheckBox.size(checkBoxSize).x(width*(2/8)-checkBoxSize/2).y(checkBoxHeights).markStrokeWidth(4.5).boxStrokeWidth(1).checked(true).clickEvent(tuesdayFilter)
-wednesdayCheckBox.size(checkBoxSize).x(width*(3/8)-checkBoxSize/2).y(checkBoxHeights).markStrokeWidth(4.5).boxStrokeWidth(1).checked(true).clickEvent(wednesdayFilter)
-thursdayCheckBox.size(checkBoxSize).x(width*(4/8)-checkBoxSize/2).y(checkBoxHeights).markStrokeWidth(4.5).boxStrokeWidth(1).checked(true).clickEvent(thursdayFilter)
-fridayCheckBox.size(checkBoxSize).x(width*(5/8)-checkBoxSize/2).y(checkBoxHeights).markStrokeWidth(4.5).boxStrokeWidth(1).checked(true).clickEvent(fridayFilter)
-saturdayCheckBox.size(checkBoxSize).x(width*(6/8)-checkBoxSize/2).y(checkBoxHeights).markStrokeWidth(4.5).boxStrokeWidth(1).checked(true).clickEvent(saturdayFilter)
-sundayCheckBox.size(checkBoxSize).x(width*(7/8)-checkBoxSize/2).y(checkBoxHeights).markStrokeWidth(4.5).boxStrokeWidth(1).checked(true).clickEvent(sundayFilter)
-
-svg2.call(mondayCheckBox)
-svg2.call(tuesdayCheckBox)
-svg2.call(wednesdayCheckBox)
-svg2.call(thursdayCheckBox)
-svg2.call(fridayCheckBox)
-svg2.call(saturdayCheckBox)
-svg2.call(sundayCheckBox)
-
-// Create check box labels~~~~~~~~~~~~~~
-svg2.append("text")
-            .attr("x", width*(1/8))
-            .attr("y", dayButtonTextHeights)
-            .attr('text-alignment','center')
-            .attr("font-size",dayButtonFontSize)
-            .style("text-anchor", "middle")
-            .text("Mon")
-            .style("pointer-events","none");
-
-svg2.append("text")
-            .attr("x", width*(2/8))
-            .attr("y", dayButtonTextHeights)
-            .attr('text-alignment','center')
-            .attr("font-size",dayButtonFontSize)
-            .style("text-anchor", "middle")
-            .text("Tues")
-            .style("pointer-events","none");
-
-svg2.append("text")
-            .attr("x", width*(3/8))
-            .attr("y", dayButtonTextHeights)
-            .attr('text-alignment','center')
-            .attr("font-size",dayButtonFontSize)
-            .style("text-anchor", "middle")
-            .text("Wed")
-            .style("pointer-events","none");
-
-svg2.append("text")
-            .attr("x", (width*(4/8)))
-            .attr("y", dayButtonTextHeights)
-            .attr('text-alignment','center')
-            .attr("font-size",dayButtonFontSize)
-            .style("text-anchor", "middle")
-            .text("Thurs")
-            .style("pointer-events","none");
-
-svg2.append("text")
-            .attr("x", (width*(5/8)))
-            .attr("y", dayButtonTextHeights)
-            .attr('text-alignment','center')
-            .attr("font-size",dayButtonFontSize)
-            .style("text-anchor", "middle")
-            .text("Fri")
-            .style("pointer-events","none");
-
-svg2.append("text")
-            .attr("x", (width*(6/8)))
-            .attr("y", dayButtonTextHeights)
-            .attr('text-alignment','center')
-            .attr("font-size",dayButtonFontSize)
-            .style("text-anchor", "middle")
-            .text("Sat")
-            .style("pointer-events","none");
-
-svg2.append("text")
-            .attr("x", (width*(7/8)))
-            .attr("y", dayButtonTextHeights)
-            .attr('text-alignment','center')
-            .attr("font-size",dayButtonFontSize)
-            .style("text-anchor", "middle")
-            .text("Sun")
-            .style("pointer-events","none");
 ///////////////////////////////////////////////////////
-
-/////////////////////////////////////////////////////////////////
-
-
-
-
 
 // highlight dot when clicked on, unhighlight if already highlighted
 d3.select("#chart").selectAll("circle").on("click", function() {
-  
     if (d3.select(this).style("stroke") == 'none') {
       d3.select(this)
-        .style("stroke","yellow")
+        .style("stroke","cyan")
         .style("stroke-width",5);
     }
     else {
       d3.select(this)
         .style("stroke","none")
     }
-  
 });
 
 // when cursor is hovered above a dot, have a tooltip of date
@@ -1165,8 +702,8 @@ d3.select("#chart").selectAll("circle").on("mouseover", function(d) {
     .text(d.id[2] + ", " + d.id[3]);
   })
   .on("mousemove", function() {
-    return tooltip.style("top", (event.pageY - 30) + "px")
-      .style("left", event.pageX + "px");
+    return tooltip.style("top", (event.pageY - 15) + "px")
+      .style("left", event.pageX + 10 + "px");
   })
   .on("mouseout", function() {
     return tooltip.style("visibility", "hidden");
@@ -1230,7 +767,5 @@ d3.select("#chart").selectAll("circle").on("mouseover", function(d) {
   .on("mouseout", function() {
     return tooltip.style("visibility", "hidden");
   });
-
-
 
 }

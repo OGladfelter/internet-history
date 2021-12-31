@@ -54,15 +54,47 @@
     </h3>
   </div>
 
-  <!-- timeSlider -->
-  <input type="range" id="timeSlider" min="0" max="1439" value="540">
-
-  <div style="width:95%">
-    <div id="chart" style='height:95vh;'></div>
+  <div class="row">
+    <div class="column">
+        <!-- timeSlider -->
+        <input type="range" id="timeSlider" min="0" max="1439" value="540">
+        <div style="width:95%">
+          <div id="chart" style='height:95vh;'></div>
+        </div>
+    </div>
+    <div class="column">
+        <h3 id="subtitle">Instructions</h3>
+        <p id="paragraph"></p>
+        <div class="buttonsContainer">
+          <button id="slow">Slow</button>
+          <button id="normal">Normal</button>
+          <button id="fast">Fast</button>
+          <button id="pause">Pause</button>
+          <button id="FF">➤➤</button>
+        </div>
+        <table>
+          <tr>
+            <td>Monday</td>
+            <td>Tuesday</td>
+            <td>Wednesday</td>
+            <td>Thursday</td>
+            <td>Friday</td>
+            <td>Saturday</td>
+            <td>Sunday</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" id="Monday" checked></input></td>
+            <td><input type="checkbox" id="Tuesday" checked></input></td>
+            <td><input type="checkbox" id="Wednesday" checked></input></td>
+            <td><input type="checkbox" id="Thursday" checked></input></td>
+            <td><input type="checkbox" id="Friday" checked></input></td>
+            <td><input type="checkbox" id="Saturday" checked></input></td>
+            <td><input type="checkbox" id="Sunday" checked></input></td>
+          </tr>
+        </table>
+      </div>
   </div>
 
-  <script src="https://d3js.org/d3.v5.js"></script>
   <script src="js/d3-3-5-5.min.js"></script>
-  <script src="js/d3CheckBox.js"></script>
   <script src="js/script.js"></script>
 </body>
