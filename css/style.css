@@ -103,6 +103,7 @@ text {
 	padding: 10px;
 	border-radius: 5px;
 	cursor: pointer;
+	border: 1px #00aeef solid;
 }
 #normal {
 	background-color: #00aeef;

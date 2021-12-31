@@ -678,275 +678,50 @@ document.getElementById("pause").addEventListener("click", function() {
   }
 });
 
-
 // functions for check boxes
-
 var filteredOpacity = .15;
 var filteredColor = "#e4e8eb";
 
-mondayFilter = function () {
-      if (mondayCheckBox.checked()){ // The box is CHECKED, uncheck it
-        for (panelist = 0; panelist < browsingData.length; panelist++) { 
-          // Check if the day matches the button
-          if (browsingData[panelist][0][1] == "Monday") {
-            nodes[panelist].id[0] = foci[browsingData[panelist][stage-1][0]].color; // save the color to their ID, which will change the color in the next stage
-            nodes[panelist].id[1] = .5; // return to full opacity
-          } 
+var checkboxes = document.querySelectorAll("input[type='checkbox']");
+checkboxes.forEach(checkbox => checkbox.addEventListener("change", function() {
+    highlightByDay(this.id);
+  }
+));
+
+function highlightByDay(weekday) {
+  if (document.getElementById(weekday).checked){ // The box is CHECKED, uncheck it
+    for (panelist = 0; panelist < browsingData.length; panelist++) { 
+      // Check if the day matches the button
+      if (browsingData[panelist][0][1] == weekday) {
+        nodes[panelist].id[0] = foci[browsingData[panelist][stage-1][0]].color; // save the color to their ID, which will change the color in the next stage
+        nodes[panelist].id[1] = .5; // return to full opacity
+      } 
+    }
+  }
+  else { // The box is UNCHECKED, turn check it
+    for (panelist = 0; panelist < browsingData.length; panelist++) { 
+      // Check if the day matches the button
+        if (browsingData[panelist][0][1] == weekday) {
+          nodes[panelist].id[0] = filteredColor;
+          nodes[panelist].id[1] = filteredOpacity;
         }
-      }
-      else { // The box is UNCHECKED, turn check it
-        for (panelist = 0; panelist < browsingData.length; panelist++) { 
-          // Check if the day matches the button
-            if (browsingData[panelist][0][1] == "Monday") {
-              nodes[panelist].id[0] = filteredColor;
-              nodes[panelist].id[1] = filteredOpacity;
-            }
-        }
-      }   
+    }
+  }   
 };
 
-tuesdayFilter = function () {
-      if (tuesdayCheckBox.checked()){ // The box is CHECKED, uncheck it
-        for (panelist = 0; panelist < browsingData.length; panelist++) { 
-          // Check if the day matches the button
-          if (browsingData[panelist][0][1] == "Tuesday") {
-            nodes[panelist].id[0] = foci[browsingData[panelist][stage-1][0]].color; // save the color to their ID, which will change the color in the next stage
-            nodes[panelist].id[1] = .5; // return to full opacity
-          } 
-        }
-      }
-      else { // The box is UNCHECKED, turn check it
-        for (panelist = 0; panelist < browsingData.length; panelist++) { 
-          // Check if the day matches the button
-            if (browsingData[panelist][0][1] == "Tuesday") {
-              nodes[panelist].id[0] = filteredColor;
-              nodes[panelist].id[1] = filteredOpacity;
-            }
-        }
-      }   
-};
-
-wednesdayFilter = function () {
-      if (wednesdayCheckBox.checked()){ // The box is CHECKED, uncheck it
-        for (panelist = 0; panelist < browsingData.length; panelist++) { 
-          // Check if the day matches the button
-          if (browsingData[panelist][0][1] == "Wednesday") {
-            nodes[panelist].id[0] = foci[browsingData[panelist][stage-1][0]].color; // save the color to their ID, which will change the color in the next stage
-            nodes[panelist].id[1] = .5; // return to full opacity
-          } 
-        }
-      }
-      else { // The box is UNCHECKED, turn check it
-        for (panelist = 0; panelist < browsingData.length; panelist++) { 
-          // Check if the day matches the button
-            if (browsingData[panelist][0][1] == "Wednesday") {
-              nodes[panelist].id[0] = filteredColor;
-              nodes[panelist].id[1] = filteredOpacity;
-            }
-        }
-      }   
-};
-
-thursdayFilter = function () {
-      if (thursdayCheckBox.checked()){ // The box is CHECKED, uncheck it
-        for (panelist = 0; panelist < browsingData.length; panelist++) { 
-          // Check if the day matches the button
-          if (browsingData[panelist][0][1] == "Thursday") {
-            nodes[panelist].id[0] = foci[browsingData[panelist][stage-1][0]].color; // save the color to their ID, which will change the color in the next stage
-            nodes[panelist].id[1] = .5; // return to full opacity
-          } 
-        }
-      }
-      else { // The box is UNCHECKED, turn check it
-        for (panelist = 0; panelist < browsingData.length; panelist++) { 
-          // Check if the day matches the button
-            if (browsingData[panelist][0][1] == "Thursday") {
-              nodes[panelist].id[0] = filteredColor;
-              nodes[panelist].id[1] = filteredOpacity;
-            }
-        }
-      }   
-};
-
-fridayFilter = function () {
-      if (fridayCheckBox.checked()){ // The box is CHECKED, uncheck it
-        for (panelist = 0; panelist < browsingData.length; panelist++) { 
-          // Check if the day matches the button
-          if (browsingData[panelist][0][1] == "Friday") {
-            nodes[panelist].id[0] = foci[browsingData[panelist][stage-1][0]].color; // save the color to their ID, which will change the color in the next stage
-            nodes[panelist].id[1] = .5; // return to full opacity
-          } 
-        }
-      }
-      else { // The box is UNCHECKED, turn check it
-        for (panelist = 0; panelist < browsingData.length; panelist++) { 
-          // Check if the day matches the button
-            if (browsingData[panelist][0][1] == "Friday") {
-              nodes[panelist].id[0] = filteredColor;
-              nodes[panelist].id[1] = filteredOpacity;
-            }
-        }
-      }   
-};
-
-saturdayFilter = function () {
-      if (saturdayCheckBox.checked()){ // The box is CHECKED, uncheck it
-        for (panelist = 0; panelist < browsingData.length; panelist++) { 
-          // Check if the day matches the button
-          if (browsingData[panelist][0][1] == "Saturday") {
-            nodes[panelist].id[0] = foci[browsingData[panelist][stage-1][0]].color; // save the color to their ID, which will change the color in the next stage
-            nodes[panelist].id[1] = .5; // return to full opacity
-          } 
-        }
-      }
-      else { // The box is UNCHECKED, turn check it
-        for (panelist = 0; panelist < browsingData.length; panelist++) { 
-          // Check if the day matches the button
-            if (browsingData[panelist][0][1] == "Saturday") {
-              nodes[panelist].id[0] = filteredColor;
-              nodes[panelist].id[1] = filteredOpacity;
-            }
-        }
-      }   
-};
-
-sundayFilter = function () {
-      if (sundayCheckBox.checked()){ // The box is CHECKED, uncheck it
-        for (panelist = 0; panelist < browsingData.length; panelist++) { 
-          // Check if the day matches the button
-          if (browsingData[panelist][0][1] == "Sunday") {
-            nodes[panelist].id[0] = foci[browsingData[panelist][stage-1][0]].color; // save the color to their ID, which will change the color in the next stage
-            nodes[panelist].id[1] = .5; // return to full opacity
-          } 
-        }
-      }
-      else { // The box is UNCHECKED, turn check it
-        for (panelist = 0; panelist < browsingData.length; panelist++) { 
-          // Check if the day matches the button
-            if (browsingData[panelist][0][1] == "Sunday") {
-              nodes[panelist].id[0] = filteredColor;
-              nodes[panelist].id[1] = filteredOpacity;
-            }
-        }
-      }   
-};
-
-// check boxes to filter dots by day of week
-
-var checkBoxSize = 35;
-
-var dayButtonTextHeights = height;
-var checkBoxHeights = height;
-var dayButtonFontSize = "18px"
-
-mondayCheckBox = new d3CheckBox()
-tuesdayCheckBox = new d3CheckBox()
-wednesdayCheckBox = new d3CheckBox()
-thursdayCheckBox = new d3CheckBox()
-fridayCheckBox = new d3CheckBox()
-saturdayCheckBox = new d3CheckBox()
-sundayCheckBox = new d3CheckBox()
-
-mondayCheckBox.size(checkBoxSize).x(width*(1/8)-checkBoxSize/2).y(checkBoxHeights).markStrokeWidth(4.5).boxStrokeWidth(1).checked(true).clickEvent(mondayFilter)
-tuesdayCheckBox.size(checkBoxSize).x(width*(2/8)-checkBoxSize/2).y(checkBoxHeights).markStrokeWidth(4.5).boxStrokeWidth(1).checked(true).clickEvent(tuesdayFilter)
-wednesdayCheckBox.size(checkBoxSize).x(width*(3/8)-checkBoxSize/2).y(checkBoxHeights).markStrokeWidth(4.5).boxStrokeWidth(1).checked(true).clickEvent(wednesdayFilter)
-thursdayCheckBox.size(checkBoxSize).x(width*(4/8)-checkBoxSize/2).y(checkBoxHeights).markStrokeWidth(4.5).boxStrokeWidth(1).checked(true).clickEvent(thursdayFilter)
-fridayCheckBox.size(checkBoxSize).x(width*(5/8)-checkBoxSize/2).y(checkBoxHeights).markStrokeWidth(4.5).boxStrokeWidth(1).checked(true).clickEvent(fridayFilter)
-saturdayCheckBox.size(checkBoxSize).x(width*(6/8)-checkBoxSize/2).y(checkBoxHeights).markStrokeWidth(4.5).boxStrokeWidth(1).checked(true).clickEvent(saturdayFilter)
-sundayCheckBox.size(checkBoxSize).x(width*(7/8)-checkBoxSize/2).y(checkBoxHeights).markStrokeWidth(4.5).boxStrokeWidth(1).checked(true).clickEvent(sundayFilter)
-
-svg2.call(mondayCheckBox)
-svg2.call(tuesdayCheckBox)
-svg2.call(wednesdayCheckBox)
-svg2.call(thursdayCheckBox)
-svg2.call(fridayCheckBox)
-svg2.call(saturdayCheckBox)
-svg2.call(sundayCheckBox)
-
-// Create check box labels~~~~~~~~~~~~~~
-svg2.append("text")
-            .attr("x", width*(1/8))
-            .attr("y", dayButtonTextHeights)
-            .attr('text-alignment','center')
-            .attr("font-size",dayButtonFontSize)
-            .style("text-anchor", "middle")
-            .text("Mon")
-            .style("pointer-events","none");
-
-svg2.append("text")
-            .attr("x", width*(2/8))
-            .attr("y", dayButtonTextHeights)
-            .attr('text-alignment','center')
-            .attr("font-size",dayButtonFontSize)
-            .style("text-anchor", "middle")
-            .text("Tues")
-            .style("pointer-events","none");
-
-svg2.append("text")
-            .attr("x", width*(3/8))
-            .attr("y", dayButtonTextHeights)
-            .attr('text-alignment','center')
-            .attr("font-size",dayButtonFontSize)
-            .style("text-anchor", "middle")
-            .text("Wed")
-            .style("pointer-events","none");
-
-svg2.append("text")
-            .attr("x", (width*(4/8)))
-            .attr("y", dayButtonTextHeights)
-            .attr('text-alignment','center')
-            .attr("font-size",dayButtonFontSize)
-            .style("text-anchor", "middle")
-            .text("Thurs")
-            .style("pointer-events","none");
-
-svg2.append("text")
-            .attr("x", (width*(5/8)))
-            .attr("y", dayButtonTextHeights)
-            .attr('text-alignment','center')
-            .attr("font-size",dayButtonFontSize)
-            .style("text-anchor", "middle")
-            .text("Fri")
-            .style("pointer-events","none");
-
-svg2.append("text")
-            .attr("x", (width*(6/8)))
-            .attr("y", dayButtonTextHeights)
-            .attr('text-alignment','center')
-            .attr("font-size",dayButtonFontSize)
-            .style("text-anchor", "middle")
-            .text("Sat")
-            .style("pointer-events","none");
-
-svg2.append("text")
-            .attr("x", (width*(7/8)))
-            .attr("y", dayButtonTextHeights)
-            .attr('text-alignment','center')
-            .attr("font-size",dayButtonFontSize)
-            .style("text-anchor", "middle")
-            .text("Sun")
-            .style("pointer-events","none");
 ///////////////////////////////////////////////////////
-
-/////////////////////////////////////////////////////////////////
-
-
-
-
 
 // highlight dot when clicked on, unhighlight if already highlighted
 d3.select("#chart").selectAll("circle").on("click", function() {
-  
     if (d3.select(this).style("stroke") == 'none') {
       d3.select(this)
-        .style("stroke","yellow")
+        .style("stroke","cyan")
         .style("stroke-width",5);
     }
     else {
       d3.select(this)
         .style("stroke","none")
     }
-  
 });
 
 // when cursor is hovered above a dot, have a tooltip of date
@@ -956,8 +731,8 @@ d3.select("#chart").selectAll("circle").on("mouseover", function(d) {
     .text(d.id[2] + ", " + d.id[3]);
   })
   .on("mousemove", function() {
-    return tooltip.style("top", (event.pageY - 30) + "px")
-      .style("left", event.pageX + "px");
+    return tooltip.style("top", (event.pageY - 15) + "px")
+      .style("left", event.pageX + 10 + "px");
   })
   .on("mouseout", function() {
     return tooltip.style("visibility", "hidden");
