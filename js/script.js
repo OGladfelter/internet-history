@@ -631,223 +631,53 @@ document.getElementById("timeSlider").style.transform = "translate(" + x_diff + 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-
-// BUTTONS
-
-if (IsMobileCard()){
-  var buttonsBorderHeightRatio = .4; //in side by side view, .38 will center box with middle of svg1
-
-}
-else{
-  var buttonsBorderHeightRatio = .66; //in side by side view, .38 will center box with middle of svg1
-}
-
-var buttonsBorderHeight = height * buttonsBorderHeightRatio;
-buttonWidth = 80;
-buttonHeight = 40;
-
-var speedButtonHeights = height * (buttonsBorderHeightRatio + .025);
-var speedButtonTextHeights = height * (buttonsBorderHeightRatio + .025) + 25;
-
 // Create buttons to control speed of step progression~~~~~~~~~~~~~~
 
-var buttonsBorder = svg2.append("rect")
-    .attr("x", width*(1/8)-width*(1/16))
-    .attr("y", buttonsBorderHeight)
-    //.attr("rx",10)
-    //.attr("ry",10)
-    .attr("height", (height * .36) - (height * .12))
-    .attr("width", width*(7/8))
-    .style("stroke","gray")
-    .style("stroke-width",1)
-    .style("pointer-events","none")
-    .style("fill", '#E7EDEB');
-
-var slowButton = svg2.append("rect")
-    .attr("x", width*(1/6)-buttonWidth/2)
-    .attr("y", speedButtonHeights)
-    .attr("rx",10)
-    .attr("ry",10)
-    .attr("height", buttonHeight)
-    .attr("width", buttonWidth)
-    .style("stroke","#00aeef")
-    .style("fill", '#baeaf9')
-    .style("cursor","pointer")
-    .attr("id", "slow");
-
-svg2.append("text")
-            .attr("x", width*(1/6))
-            .attr("y", speedButtonTextHeights)
-            .attr('text-alignment','center')
-            .attr("font-size","20px")
-            .style("text-anchor", "middle")
-            .text("Slow")
-            .style("cursor","pointer")
-            .style("pointer-events","none");
-            
-var normalButton = svg2.append("rect")
-    .attr("x", width*(2/6)-buttonWidth/2)
-    .attr("y", speedButtonHeights)
-    .attr("rx",10)
-    .attr("ry",10)
-    .attr("height", buttonHeight)
-    .attr("width", buttonWidth)
-    .style("stroke","#00aeef")
-    .style("fill", '#00aeef')
-    .style("cursor","pointer")
-    .attr("id", "normal");
-
-svg2.append("text")
-            .attr("x", width*(2/6))
-            .attr("y", speedButtonTextHeights)
-            .attr('text-alignment','center')
-            .attr("font-size","20px")
-            .style("text-anchor", "middle")
-            .text("Normal")
-            .style("cursor","pointer")
-            .style("pointer-events","none");
-
-var fastButton = svg2.append("rect")
-    .attr("x", (width + margin.left + margin.right)/2-buttonWidth/2)
-    .attr("y", speedButtonHeights)
-    .attr("rx",10)
-    .attr("ry",10)
-    .attr("height", buttonHeight)
-    .attr("width", buttonWidth)
-    .style("stroke","#00aeef")
-    .style("fill", '#baeaf9')
-    .style("cursor","pointer")
-    .attr("id", "fast");
-
-svg2.append("text")
-            .attr("x", (width/2))
-            .attr("y", speedButtonTextHeights)
-            .attr('text-alignment','center')
-            .attr("font-size","20px")
-            .style("text-anchor", "middle")
-            .text("Fast")
-            .style("cursor","pointer")
-            .style("pointer-events","none");
-
-var pauseButton = svg2.append("rect")
-    .attr("x", width * (4/6)-buttonWidth/2)
-    .attr("y", speedButtonHeights)
-    .attr("rx",10)
-    .attr("ry",10)
-    .attr("height", buttonHeight)
-    .attr("width", buttonWidth)
-    .style("stroke","#00aeef")
-    .style("fill", '#baeaf9')
-    .style("cursor","pointer")
-    .attr("id", "pause");
-
-svg2.append("text")
-            .attr("x", width*4/6)
-            .attr("y", speedButtonTextHeights)
-            .attr('text-alignment','center')
-            .attr("font-size","20px")
-            .style("text-anchor", "middle")
-            .text("Pause")
-            .style("cursor","pointer")
-            .style("pointer-events","none");
-
-var FFButton = svg2.append("rect")
-    .attr("x", width*(5/6)-buttonWidth/2)
-    .attr("y", speedButtonHeights)
-    .attr("rx",10)
-    .attr("ry",10)
-    .attr("height", buttonHeight)
-    .attr("width", buttonWidth)
-    .style("stroke","#00aeef")
-    .style("fill", '#baeaf9')
-    .style("cursor","pointer")
-    .attr("id", "fastForward");
-
-svg2.append("text")
-            .attr("x", width*(5/6))
-            .attr("y", speedButtonTextHeights)
-            .attr('text-alignment','center')
-            .attr("font-size","20px")
-            //.attr("font-weight","bold")
-            .style("text-anchor", "middle")
-            .text("➤➤")
-            .style("cursor","pointer")
-            .style("pointer-events","none");
-
-
-/* Function called when speed buttons are activated*/
-d3.select("#chart").selectAll("rect").on("click", function() {
-  
-  //See which p was clicked
-  var textID = d3.select(this).attr("id");
-
-  // speed buttons below
-  if (textID == "slow") {
-      secTillNext = 1000;
-      movementSpeed = .5;
-      clearTimeout(timeout);
-      timeout = setTimeout(timer, 1000);
-      pauseButton.style("fill","#baeaf9");
-      normalButton.style("fill","#baeaf9");
-      fastButton.style("fill","#baeaf9");
-      FFButton.style("fill","#baeaf9");
-      d3.select(this).style("fill","#00aeef");
-  }
-  else if (textID == "normal") {
-      secTillNext = 500;
-      movementSpeed = .75;
-      clearTimeout(timeout)
-      timeout = setTimeout(timer, 500);
-      pauseButton.style("fill","#baeaf9");
-      slowButton.style("fill","#baeaf9");
-      fastButton.style("fill","#baeaf9");
-      FFButton.style("fill","#baeaf9");
-      d3.select(this).style("fill","#00aeef");
-  }
-  else if (textID == "fast") {
-      secTillNext = 250;
-      movementSpeed = 1
-      clearTimeout(timeout)
-      timeout = setTimeout(timer, 100);
-      pauseButton.style("fill","#baeaf9");
-      normalButton.style("fill","#baeaf9");
-      slowButton.style("fill","#baeaf9");
-      FFButton.style("fill","#baeaf9");
-      d3.select(this).style("fill","#00aeef");
-  }
-  else if (textID == "pause") {
-    if (d3.select(this).style("fill") == "rgb(186, 234, 249)"){ // currently not paused, so pause it
-      clearTimeout(timeout)
-      slowButton.style("fill","#baeaf9");
-      normalButton.style("fill","#baeaf9");
-      fastButton.style("fill","#baeaf9");
-      FFButton.style("fill","#baeaf9");
-      d3.select(this).style("fill","#00aeef");
-    }
-    else{ // already paused, so unpause it and resume at normal speed
-      secTillNext = 1000;
-      movementSpeed = .5;
-      clearTimeout(timeout)
-      timeout = setTimeout(timer, 500);
-      normalButton.style("fill","#00aeef");
-      slowButton.style("fill","#baeaf9");
-      fastButton.style("fill","#baeaf9");
-      FFButton.style("fill","#baeaf9");
-      d3.select(this).style("fill","#baeaf9");
-    }
-  }
-  else if (textID == "fastForward") {
-      secTillNext = 50;
-      movementSpeed = 4
-      clearTimeout(timeout)
-      timeout = setTimeout(timer, 100);
-      pauseButton.style("fill","#baeaf9");
-      normalButton.style("fill","#baeaf9");
-      slowButton.style("fill","#baeaf9");
-      fastButton.style("fill","#baeaf9");
-      d3.select(this).style("fill","#00aeef");
+function speedChange(stepDelay, speed) {
+  secTillNext = stepDelay;
+  movementSpeed = speed;
+  clearTimeout(timeout);
+  timeout = setTimeout(timer, 1000);
 }
+
+var paused = 0;
+var buttons = [...document.getElementsByTagName("button")];
+
+document.getElementById("slow").addEventListener("click", function() {
+  speedChange(1000, 0.25);
+  buttons.forEach(button => button.style.backgroundColor = "#baeaf9");
+  this.style.backgroundColor = "#00aeef";
 });
+document.getElementById("normal").addEventListener("click", function() {
+  speedChange(500, 0.75);
+  buttons.forEach(button => button.style.backgroundColor = "#baeaf9");
+  this.style.backgroundColor = "#00aeef";
+});
+document.getElementById("fast").addEventListener("click", function() {
+  speedChange(250, 1);
+  buttons.forEach(button => button.style.backgroundColor = "#baeaf9");
+  this.style.backgroundColor = "#00aeef";
+});
+document.getElementById("FF").addEventListener("click", function() {
+  speedChange(50, 4);
+  buttons.forEach(button => button.style.backgroundColor = "#baeaf9");
+  this.style.backgroundColor = "#00aeef";
+});
+document.getElementById("pause").addEventListener("click", function() {
+  if (paused == 0) { // currently not paused, so pause it
+    clearTimeout(timeout);
+    paused = 1;
+    buttons.forEach(button => button.style.backgroundColor = "#baeaf9");
+    this.style.backgroundColor = "#00aeef";
+  }
+  else {
+    speedChange(500, 0.75); // already paused, so unpause it and resume at normal speed
+    paused = 0;
+    buttons.forEach(button => button.style.backgroundColor = "#baeaf9");
+    document.getElementById("normal").style.backgroundColor = "#00aeef";
+  }
+});
+
 
 // functions for check boxes
 
@@ -1005,8 +835,8 @@ sundayFilter = function () {
 
 var checkBoxSize = 35;
 
-var dayButtonTextHeights = height * (buttonsBorderHeightRatio+.145);
-var checkBoxHeights = height * (buttonsBorderHeightRatio+.155);
+var dayButtonTextHeights = height;
+var checkBoxHeights = height;
 var dayButtonFontSize = "18px"
 
 mondayCheckBox = new d3CheckBox()

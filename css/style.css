@@ -93,8 +93,20 @@ text {
     font-family: "Arial";
 }
 
-
-
+.buttonsContainer {
+	margin: 20px;
+	padding: 20px;
+}
+.buttonsContainer button {
+	background-color: #baeaf9;
+	border: 0px;
+	padding: 10px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+#normal {
+	background-color: #00aeef;
+}
 
 
 
