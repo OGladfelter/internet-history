@@ -5,24 +5,11 @@ function IsMobileCard() {
 
   return check;   
 }
-  
-paragraphs = ["➀ Each dot represents one full 24-hour day of my internet history. ➁ Hover over any website label to get a more accurate description or example of how I use it. ➂ Hover over any dot to see what date it represents. ➃ Click on any dot to highlight it; click again to unhighlight. ➄ Use the blue buttons to adjust the speed of the graph and the checkboxes to hide/unhide dots by days of the week. ➅ The slider on the graph can be used to jump around to different times.",
-    "Around now, I’m usually arriving at work and gearing up for the day. This involves reading any emails or Slack messages in my inbox, checking my calendar, and launching other work apps. If time allows, I also try to pop open my favorite news websites.",
-    "By this hour, my day is usually in full swing if it’s a weekday and I’m likely switching back and forth between several websites. It’s rare that I’m online this early on the weekends, as Saturday and Sunday mornings are typically reserved for either long runs or sleeping in.",
-    "This point represents my peak internet usage time. Out of 90 days, I was online 61 of them during this time period. During the week, this is when I get back from lunch (if I took a break) and get busy wrapping for the day. On the weekend, this is around the time I finish my morning run and am finally ready to unwind. Either way, it’s a time of day I’m likely to be online.",
-    "Work is wrapping up for the day, leading to a big drop in activity on Google Apps, Work Apps, and Slack. It’s also a time of day I’m likely to be offline, as I’m commuting or partaking in after work activities.",
-    "Chaos tends to be the only pattern to my internet activity here. This is the time of day I’m logging off my work computer and switching to my personal laptop, meaning I’m free to check social media, watch Netflix or YouTube, or mindlessly browse.",
-    "From 9:00 AM to 6:00 PM, G Suite was used more than any other group (excluding the ‘Off’ category). This current hour marks the point at which G Suite gets dethroned - by YouTube. So swapping out Google for...more Google. YouTube remains the most dominant group for the next four hours.",
-    "This is the time of day I’m most likely to be on Facebook. I suspected all of my social media peak times would match up, but surprisingly, I don’t use Twitter nearly as much during this time period - I’m most likely to be tweeting 10:00-11:00 PM, at 1:30 PM, and 11:00 AM. Why I feel comfortable sneaking onto Twitter during the work day but not Facebook is anyone’s guess.",
-    "Here’s where Netflix and Youtube both get their most visitation from me. It’s no coincidence that the most passive websites are the most popular at the time I might also be performing my end of day rituals (meal prep, ironing clothes, teeth brushing). In other words, I can have Netflix or YouTube videos playing in the background while I’m doing chores.",
-    "Here I’m revealing my status as a night owl. Wikipedia, Netflix, Youtube, social media are all still getting activity while many people might be fast asleep already. You might notice I typically try to get to bed by midnight, although you’ll also see I don’t always make that mark - especially when I’m trapped in a fascinating Wikipedia Loop.",
-    "92% of the time I’m offline by 1:00am. The exceptions are usually Saturday nights (technically early morning Sundays), although that’s not always the case.",
-    "Staying up late on a Saturday night to surf the web isn’t all that interesting. But one can only wonder what Netflix show was so captivating that it kept me up past 2:00am on a Thursday morning...just kidding, I checked the data - it was The Office.",
-    "Working lunches are extremely common at my company, so I’m not offline at this hour nearly as much as one might expect. Granted, even if I’m not getting away from my desk, I can still take breaks, which explains the increased miscellaneous and news traffic, as well as the YouTube and Amazon usage.",
-    "This entire project was inspired and heavily influenced by Nathan Yu's 'A Day in the Life of Americans.' If you’re interested in learning more about data visualization, I highly recommend his tutorials."]
+
+instructions = "➀ Each dot represents one full 24-hour day of my internet history. ➁ Hover over any website label to get a more accurate description or example of how I use it. ➂ Hover over any dot to see what date it represents. ➃ Click on any dot to highlight it; click again to unhighlight. ➄ Use the below buttons to adjust the speed of the graph and the checkboxes to hide dots by days of the week. ➅ The slider on the graph can be used to jump around to different times of the day.";
 
 if (IsMobileCard()){ // if mobile is detected, we need to tweak the instructions
-  paragraphs[0] = "➀ Each dot represents one full 24-hour day of my internet history. ➁ Tap any dot to highlight it and see what date it represents; tap again to unhighlight. ➂ Use the blue buttons to adjust the speed of the graph and the checkboxes to hide/unhide dots by days of the week. ➃ The slider on the graph can be used to jump around to different times.";
+  instructions = "➀ Each dot represents one full 24-hour day of my internet history. ➁ Tap any dot to highlight it and see what date it represents; tap again to unhighlight. ➂ Use the blue buttons to adjust the speed of the graph and the checkboxes to hide/unhide dots by days of the week. ➃ The slider on the graph can be used to jump around to different times.";
 }
 
 browsingData = []
@@ -142,8 +129,6 @@ var nodes = d3.range(0, num_nodes).map(function(o, i) {
 	}
 });
 
-
-
 // Force-directed layout
 var force = d3.layout.force()
 	.nodes(nodes)
@@ -154,7 +139,7 @@ var force = d3.layout.force()
 	.on("tick", tick)
 	.start();
     
-// Tool tip?  
+// Tool tip
 var tooltip = d3.select("body")
   .append("div")
   .attr('class', 'tooltip');
@@ -167,7 +152,6 @@ var circle = svg.selectAll("circle")
 	.attr("class", "node")
 	.style("fill", "#faf0e6");
 
-
 // For smoother initial transition to settling spots.
 circle.transition()
 	.duration(900)
@@ -177,7 +161,7 @@ circle.transition()
 		return function(t) { return d.radius = i(t); };
 	});
 
-//Create Time Title 
+// Create Time Title 
 timeLabel = svg.append("text")
             .attr("x", (width + margin.left + margin.right)*.5)
             .attr("y", (height * .025))
@@ -187,7 +171,6 @@ timeLabel = svg.append("text")
             .attr("fill","black")
             .attr("id", "timeLabel")
             .text("Loading...");
-
 
 // Rotating Text elements -----------------------------------------------------------------------
 rotatingText = document.getElementById("paragraph");
@@ -209,7 +192,7 @@ function timer() {
         nodes[panelist].cy = foci[browsingData[panelist][stage][0]].y;
         nodes[panelist].choice = browsingData[panelist][stage][0];
       if (nodes[panelist].id[0] != "#e4e8eb"){
-        nodes[panelist].id[0] = foci[browsingData[panelist][stage-1][0]].color; // the color of their new group is now saved as the id, to be used in the next stage
+        nodes[panelist].id[0] = foci[browsingData[panelist][stage][0]].color; // the color of their new group is now saved as the id, to be used in the next stage
         //nodes[panelist].id[1] = 1 // return to full opacity 
         }
       }
@@ -223,78 +206,72 @@ function timer() {
     timeLabel.text(timeList[stage]);
     timeSlider.value = stage;
     if (stage < 60) {
-      subTitleText.innerHTML = "No Sleep Till Brooklyn";
-      rotatingText.innerHTML = paragraphs[9];
+      subTitleText.innerHTML = "Revealing My Status As A Night Owl";
+      rotatingText.innerHTML = "Even late at night, I'm often still active on Wikipedia, Netflix, Youtube, and social media. You may notice I typically try to get to bed by midnight, although there are a few days I'm still online past that mark - usually a result of getting trapped in a fascinating Wikipedia Loop.";
       
     }
-    else if (stage < 90){
+    if (stage < 170){
       subTitleText.innerHTML = "Offline For The Night...Usually";
-      rotatingText.innerHTML =(paragraphs[10]);
-      
-    }
-    else if (stage < 170){
-      subTitleText.innerHTML = "This Is Only Moderately Embarrassing";
-      rotatingText.innerHTML =(paragraphs[11]);
+      rotatingText.innerHTML = "92% of the time I’m offline by 1:00am. The exceptions are usually Saturday nights (technically early morning Sundays), which isn't very surprising. Now what's more interesting (and embarrassing) is that one time I was up till 2:00am on a Thursday morning watching The Office on Netflix.";
       
     }
     else if (stage < 400){
-      subTitleText.innerHTML = "Acknowledgements";
-      rotatingText.innerHTML =(paragraphs[13]);
-      
+      subTitleText.innerHTML = "Acknowledgement";
+      rotatingText.innerHTML = "This entire project was inspired and heavily influenced by <a target='_blank' href='https://flowingdata.com/2015/12/15/a-day-in-the-life-of-americans/'>A Day in the Life of Americans</a> by Nathan Yu. If you’re interested in learning more about data visualization, I highly recommend his tutorials, especially <a target='_blank' href='https://flowingdata.com/2016/08/23/make-a-moving-bubbles-chart-to-show-clustering-and-distributions/'>the one I used to build this project</a>.";
     }
     else if (stage < 570){
       subTitleText.innerHTML = "Instructions";
-      rotatingText.innerHTML =(paragraphs[0]);
+      rotatingText.innerHTML = instructions;
       
     }
     else if (stage < 600){
-      subTitleText.innerHTML = "Barrage Of Morning Messages";
-      rotatingText.innerHTML =(paragraphs[1]);
+      subTitleText.innerHTML = "Morning Messages";
+      rotatingText.innerHTML = "This is usually when I get to work and gear up for the day. This involves reading through emails and Slack messages, checking my calendar, and launching all of my work apps. I also like to use this time to read the news.";
       
     }
     else if (stage < 660){
       subTitleText.innerHTML = "Trying To Be Productive";
-      rotatingText.innerHTML =(paragraphs[2]);
+      rotatingText.innerHTML = "By this hour, my day is usually in full swing if it’s a work day. This involves switching back and forth between several websites (G Suite, work-specific apps, and Slack). The big exception during this time period is weekends: I'm rarely online on Saturdays and Sunday mornings.";
       
     }
     else if (stage < 780){
       subTitleText.innerHTML =("Business As Usual")
-      rotatingText.innerHTML =(paragraphs[12]);
+      rotatingText.innerHTML = "Working lunches are fairly common at my company, so I’m my internet traffic holds more steady one might expect. Granted, even if I’m not getting away from my desk, I can still take breaks, which explains the increased traffic in miscellaneous groups such as news sites and Amazon.";
       
     }
     else if (stage < 990){
       subTitleText.innerHTML = "Peak Internet Usage";
-      rotatingText.innerHTML =(paragraphs[3]);
+      rotatingText.innerHTML = "This point of day is when I'm most likely to be online: I was using the internet 61 out of 90 days during this time period. On work days, this is when I get back from lunch and get busy trying to finish whatever I need done for that day. On weekends, this is around the time I finish my morning run and am ready to unwind.";
       
     }
     else if (stage < 1080){
       subTitleText.innerHTML = "Wrapping Up Work";
-      rotatingText.innerHTML =(paragraphs[4]);
+      rotatingText.innerHTML = "I usually finish work at around this time, leading to a big drop in activity on Google Apps, Work Apps, and Slack. It’s also the time of day during normal waking hours where I’m most likely to be offline.";
       
     }
     else if (stage < 1110){
       subTitleText.innerHTML = "Getting Home";
-      rotatingText.innerHTML =(paragraphs[5]);
+      rotatingText.innerHTML = "No discernible patterns here. This is the time of day I typically get home and switch from my work computer to my personal laptop, so there's a decline in work-related sites, followed by a later increase in social media, Netflix, YouTube, etc.";
       
     }
     else if (stage < 1170){
-      subTitleText.innerHTML = "Google Takes The Iron Throne";
-      rotatingText.innerHTML =(paragraphs[6]);
+      subTitleText.innerHTML = "At Night, G Suite Usage Falls In Favor Of...Another Google Product";
+      rotatingText.innerHTML = "From 9:00 AM to 6:00 PM, G Suite was used more than any other group (excluding the ‘Off’ category). This current hour marks the point at which G Suite gets dethroned - by YouTube. So essentially I'm just swapping out Google for a Google subsidiary.";
       
     }
     else if (stage < 1320){
-      subTitleText.innerHTML = "Prime Social Media Time?";
-      rotatingText.innerHTML =(paragraphs[7]);
+      subTitleText.innerHTML = "Facebook Is My Go-To Evening Social Media";
+      rotatingText.innerHTML = "This is the time of day I’m most likely to be on Facebook. I originally assumed all of my social media usage across various platforms would correlate match up, but that doesn't seem to be the case at all. For example, I don’t use Twitter much during this time period, instead opting to tweet more at late night (see 10:00-11:00 PM) and during the work day (see 1:30 PM, 11:00 AM). Why I feel comfortable using Twitter during the work day but not Facebook is anyone’s guess.";
       
     }
     else if (stage < 1410){
-      subTitleText.innerHTML = "Listening But Not Always Watching";
-      rotatingText.innerHTML =(paragraphs[8]);
+      subTitleText.innerHTML = "Passive Websites Are Popular For Background Noise";
+      rotatingText.innerHTML = "I'm most likely to be on Netflix and Youtube later at night. It’s no coincidence passive website usage spikes around the same time I'm also performing end of day rituals (meal prep, ironing clothes, brushing my teeth). In other words, I can have Netflix or YouTube videos playing in the background while I’m doing chores.";
       
     }
     else {
-      subTitleText.innerHTML = "No Sleep Till Brooklyn";
-      rotatingText.innerHTML =(paragraphs[9]);
+      subTitleText.innerHTML = "Revealing My Status As A Night Owl";
+      rotatingText.innerHTML = "Even late at night, I'm often still active on Wikipedia, Netflix, Youtube, and social media. You may notice I typically try to get to bed by midnight, although there are a few days I'm still online past that mark - usually a result of getting trapped in a fascinating Wikipedia Loop.";
     }
     
     ////////////////////////////////////////////////////////
@@ -399,7 +376,7 @@ miscLabel = svg.append("text")
             .attr("font-size",labelFontSize)
             .attr("font-weight","bold")
             .style("text-anchor", "middle")
-            .text("Misc")
+            .text("One-offs")
             .attr("id","misc")
             .attr("fill","#800080");
 
@@ -447,7 +424,7 @@ googleLabel = svg.append("text")
             .attr("font-size",labelFontSize)
             .attr("font-weight","bold")
             .style("text-anchor", "middle")
-            .text("Google")
+            .text("Google search")
             .attr("id","google")
             .attr("fill","#0F9D58");
 
@@ -531,7 +508,7 @@ otherSocialMediaLabel = svg.append("text")
             .attr("font-size",labelFontSize)
             .attr("font-weight","bold")
             .style("text-anchor", "middle")
-            .text("Social media")
+            .text("LinkedIn")
             .attr("fill","#0077B5")
             .attr("id","otherSocialMedia");
 
@@ -712,56 +689,56 @@ d3.select("#chart").selectAll("circle").on("mouseover", function(d) {
 // when cursor is hovered above a text label, have a tooltip describing the text
   d3.select("#chart").selectAll("text").on("mouseover", function(d) {
     if (d3.select(this).attr("id") == "misc"){
-      return tooltip.style("visibility", "visible").text("Random websites I don’t visit regularly, such as AirBnB, Urban Dictionary, and GoFundMe.");
+      return tooltip.style("visibility", "visible").text("Websites I typically only visit a few times, such as a restaurant's when I want to look at their menu");
     }
     else if (d3.select(this).attr("id") == "wikipedia"){
       return tooltip.style("visibility", "visible").text("70% learning, 30% Wikiracing");
     }
     else if (d3.select(this).attr("id") == "news"){
-      return tooltip.style("visibility", "visible").text("NYT, WaPo, Politico, Vox, FiveThirtyEight, The Atlantic, Vice, etc.");
+      return tooltip.style("visibility", "visible").text("NYT, WaPo, Politico, Vox, FiveThirtyEight, The Atlantic, Vice");
     }
     else if (d3.select(this).attr("id") == "grubhub"){
-      return tooltip.style("visibility", "visible").text("Always looking for those best happy hour deals");
+      return tooltip.style("visibility", "visible").text("Useful for when living in a city with seemingly infinite food and drink options");
     }
     else if (d3.select(this).attr("id") == "googleApps"){
       return tooltip.style("visibility", "visible").text("Mostly Gmail, but also Google Calendar, Hangouts, Docs, and Drive");
     }
     else if (d3.select(this).attr("id") == "strava"){
-      return tooltip.style("visibility", "visible").text("Social media for running. This group also Runner’s World and other running-related sites.");
+      return tooltip.style("visibility", "visible").text("Social media for running. This group also includes other running-related sites.");
     }
     else if (d3.select(this).attr("id") == "netflix"){
-      return tooltip.style("visibility", "visible").text("Currently rewatching The Office for the 5th time...");
+      return tooltip.style("visibility", "visible").text("Currently rewatching The Office for the upteempth time...");
     }
     else if (d3.select(this).attr("id") == "twitter"){
       return tooltip.style("visibility", "visible").text("This group would have a lot more traffic if I had included my phone’s browsing history");
     }
     else if (d3.select(this).attr("id") == "youtube"){
-      return tooltip.style("visibility", "visible").text("Running docs, How-To’s, Bo Burnham...maybe one or two videos from the weird part of YouTube");
+      return tooltip.style("visibility", "visible").text("Mostly running documentaries and the occassional How-To");
     }
     else if (d3.select(this).attr("id") == "slack"){
-      return tooltip.style("visibility", "visible").text("Mainly for work, but I also belong to some personal channels, like News Nerdery");
+      return tooltip.style("visibility", "visible").text("Mainly for work, but I also a few personal channels, like the Data Visualization Society");
     }
     else if (d3.select(this).attr("id") == "facebook"){
-      return tooltip.style("visibility", "visible").text("Shamefully often the last site I check before going to sleep");
+      return tooltip.style("visibility", "visible").text("Inexplicably often the last site I check at the end of the day");
     }
     else if (d3.select(this).attr("id") == "amazon"){
-      return tooltip.style("visibility", "visible").text("This group would have a lot more traffic if I included the dates I did my Christmas shopping");
+      return tooltip.style("visibility", "visible").text("I try to use Amazon only when absolutely necessary, so it was interesting to see the traffic to this site");
     }
     else if (d3.select(this).attr("id") == "github"){
       return tooltip.style("visibility", "visible").text("GitHub, Stack Overflow, W3Schools, and tutorials");
     }
     else if (d3.select(this).attr("id") == "google"){
-      return tooltip.style("visibility", "visible").text("Exclusively search bar queries. I’m a curious guy. And also easily forget the URLs to other websites.");
+      return tooltip.style("visibility", "visible").text("This group only includes search bar queries");
     }
     else if (d3.select(this).attr("id") == "workApps"){
       return tooltip.style("visibility", "visible").text("Stuff I use for work: Jira, Concur, other company-licensed SaaS stuff.");
     }
     else if (d3.select(this).attr("id") == "otherSocialMedia"){
-      return tooltip.style("visibility", "visible").text("Social media sites I frequent less often. Reddit, LinkedIn, and IMDb, to be exact.");
+      return tooltip.style("visibility", "visible").text("The one social media I don't feel guilty checking at work");
     }
   })
   .on("mousemove", function() {
-    return tooltip.style("top", event.pageY - 30 + "px")
+    return tooltip.style("top", event.pageY + 10 + "px")
       .style("left", event.pageX + 10 + "px");
   })
   .on("mouseout", function() {
