@@ -104,17 +104,6 @@ var svg = d3.select("#chart").append("svg")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
     .attr("align","center");
 
-var svg2 = d3.select("#chart2").append("svg")
-    .attr("width", width)
-    .attr("height", height)
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-    .attr("align","center");
-
-var bottomGroupsHeight = height * .64
-var topGroupsHeight = height * .16
-var offGroupsHeight = height * .4
-
 // Foci
 var foci = {
 
@@ -212,9 +201,6 @@ stage = 540; // starts at 9:00 AM
 secTillNext = 1000;
 
 function timer() {
-    
-
-
     // as we move into subsequent stage, update location of every node using a for loop
     for (panelist = 0; panelist < browsingData.length; panelist++) { 
       // Update node
@@ -229,16 +215,13 @@ function timer() {
       }
       else {
         nodes[panelist].cx = foci[browsingData[panelist][stage][0]].x;
-    	nodes[panelist].cy = foci[browsingData[panelist][stage][0]].y;
-    	nodes[panelist].choice = browsingData[panelist][stage][0];
-
-        
+        nodes[panelist].cy = foci[browsingData[panelist][stage][0]].y;
+        nodes[panelist].choice = browsingData[panelist][stage][0];
       }
     }
 
     timeLabel.text(timeList[stage]);
     timeSlider.value = stage;
-
     if (stage < 60) {
       subTitleText.innerHTML = "No Sleep Till Brooklyn";
       rotatingText.innerHTML = paragraphs[9];
@@ -314,14 +297,11 @@ function timer() {
       rotatingText.innerHTML =(paragraphs[9]);
     }
     
-
     ////////////////////////////////////////////////////////
     
     // get the nodes moving
     force.resume();
-    
     stage++;
-    
     // once we hit the end of the day (and data), reset
     if (stage > browsingData[0].length - 1) {
         stage = 0
@@ -330,16 +310,13 @@ function timer() {
     else if (stage == 220){
         stage = 510;
     }
-
     // Run it again in a few seconds.
     timeout = setTimeout(timer, secTillNext);  
 }
 
 timeout = setTimeout(timer, 200);
 
-//
 // Force-directed boiler plate functions
-//
 
 movementSpeed = .5;
 
@@ -354,7 +331,6 @@ function tick(e) {
     ;
 }
 
-
 // Move nodes toward cluster focus.
 function gravity(alpha) {
   return function(d) {
@@ -362,8 +338,6 @@ function gravity(alpha) {
     d.x += (foci[d.choice].x - d.x) * alpha;
   };
 }
-
-
 
 // Resolve collisions between nodes.
 function collide(alpha) {
@@ -394,7 +368,6 @@ function collide(alpha) {
 }    
 
 // Labels and Title ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 if (document.getElementById('chart').clientWidth < 1500){
     var labelFontSize = "16px";
 }
@@ -630,9 +603,7 @@ document.getElementById("timeSlider").style.transform = "translate(" + x_diff + 
                     
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-// Create buttons to control speed of step progression~~~~~~~~~~~~~~
-
+// functions for buttons to control speed of step progression~~~~~~~~~~~~~~
 function speedChange(stepDelay, speed) {
   secTillNext = stepDelay;
   movementSpeed = speed;
@@ -796,7 +767,5 @@ d3.select("#chart").selectAll("circle").on("mouseover", function(d) {
   .on("mouseout", function() {
     return tooltip.style("visibility", "hidden");
   });
-
-
 
 }
