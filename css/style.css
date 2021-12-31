@@ -74,8 +74,13 @@ body {
 	flex: 50%;
 }
 
-article, p {
+article {
 	text-align: left;
+	width: 75%;
+}
+p {
+	text-align: left;
+	font-size: 18px;
 }
 
 #main-wrapper {
