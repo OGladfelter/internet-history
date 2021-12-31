@@ -104,12 +104,29 @@ text {
 	border-radius: 5px;
 	cursor: pointer;
 	border: 1px #00aeef solid;
+	font-size: 16px;
 }
 #normal {
 	background-color: #00aeef;
 }
 
+table {
+	margin: auto;
+}
+td {
+	padding: 5px 15px;
+	font-weight: bold;
+	font-size: 16px;
+}
 
-
-
+input[type=checkbox]
+{
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(1.5); /* IE */
+  -moz-transform: scale(1.5); /* FF */
+  -webkit-transform: scale(1.5); /* Safari and Chrome */
+  -o-transform: scale(1.5); /* Opera */
+  transform: scale(1.5);
+  padding: 10px;
+}
 
