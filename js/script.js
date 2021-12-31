@@ -19,13 +19,11 @@ paragraphs = ["➀ Each dot represents one full 24-hour day of my internet histo
     "92% of the time I’m offline by 1:00am. The exceptions are usually Saturday nights (technically early morning Sundays), although that’s not always the case.",
     "Staying up late on a Saturday night to surf the web isn’t all that interesting. But one can only wonder what Netflix show was so captivating that it kept me up past 2:00am on a Thursday morning...just kidding, I checked the data - it was The Office.",
     "Working lunches are extremely common at my company, so I’m not offline at this hour nearly as much as one might expect. Granted, even if I’m not getting away from my desk, I can still take breaks, which explains the increased miscellaneous and news traffic, as well as the YouTube and Amazon usage.",
-    "This entire project was inspired and heavily influenced by Nathan Yu's 'A Day in the Life of Americans.' If you’re interested in learning more about data visualization, I highly recommend his tutorials. Additionally, the time slider was created using a library written by John Walley and the checkboxes below were created using a library written by Seimei Matsusaki."]
+    "This entire project was inspired and heavily influenced by Nathan Yu's 'A Day in the Life of Americans.' If you’re interested in learning more about data visualization, I highly recommend his tutorials."]
 
 if (IsMobileCard()){ // if mobile is detected, we need to tweak the instructions
   paragraphs[0] = "➀ Each dot represents one full 24-hour day of my internet history. ➁ Tap any dot to highlight it and see what date it represents; tap again to unhighlight. ➂ Use the blue buttons to adjust the speed of the graph and the checkboxes to hide/unhide dots by days of the week. ➃ The slider on the graph can be used to jump around to different times.";
 }
-
-subtitles = ["Instructions","Barrage Of Morning Messages","Trying To Be Productive", "Peak Internet Usage", "Wrapping Up Work", "Getting Home", "Google Takes The Iron Throne", "Prime Social Media Time?", "Listening But Not Always Watching", "No Sleep Till Brooklyn", "Offline For The Night...Usually", "This Is Only Moderately Embarrassing"]
 
 browsingData = []
 
@@ -106,7 +104,7 @@ var svg = d3.select("#chart").append("svg")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
     .attr("align","center");
 
-var svg2 = d3.select("#chart").append("svg")
+var svg2 = d3.select("#chart2").append("svg")
     .attr("width", width)
     .attr("height", height)
     .append("g")
@@ -116,7 +114,6 @@ var svg2 = d3.select("#chart").append("svg")
 var bottomGroupsHeight = height * .64
 var topGroupsHeight = height * .16
 var offGroupsHeight = height * .4
-
 
 // Foci
 var foci = {
@@ -203,44 +200,9 @@ timeLabel = svg.append("text")
             .text("Loading...");
 
 
-// Rotating Text & Text Box -----------------------------------------------------------------------
-// Setting dimensions for the textbox in svg2 [which is a rect and text with same x and y coordinates + d3plus.textwrap()]
-var textX = .1
-var textY = .05;
-var textboxWidth = (width * .9) - (width * .1)
-var textboxHeight = (height * .7) - (height * .3)
-
-// Draw the textbox
-svg2.append("rect")
-            .attr("x", (width + margin.left + margin.right)*textX)
-            .attr("y", (height * textY))
-            .attr("height",textboxHeight)
-            .attr("width",textboxWidth)
-            .style("fill","transparent")
-
-// Create Rotating Text, placed and then wrapped inside the textbox
-rotatingText = svg2.append("text")
-            .attr("x", (width + margin.left + margin.right)*textX)
-            .attr("y", (height * textY))
-            .attr('text-alignment','center')
-            .attr("font-size","20px")
-            .style("text-anchor", "middle")
-            .attr("fill","black")
-            .attr("class", "wrap")
-            .attr("id","rectResize")
-            .text(paragraphs[0]);
-
-// Create Rotating Text Titles - No Need For Textbox
-subTitleText = svg2.append("text")
-            .attr("x", (width + margin.left + margin.right)*.5)
-            .attr("y", (height * .025))
-            .attr('text-alignment','center')
-            .attr("font-size","30px")
-            .attr("font-style","italic")
-            .style("text-anchor", "middle")
-            .attr("font-weight","bold")
-            .attr("fill","black")
-            .text("Instructions");
+// Rotating Text elements -----------------------------------------------------------------------
+rotatingText = document.getElementById("paragraph");
+subTitleText = document.getElementById("subtitle");
 
 ////////////////////////////////////////////////////////////////////
 
@@ -277,80 +239,79 @@ function timer() {
     timeLabel.text(timeList[stage]);
     timeSlider.value = stage;
 
-    if (stage < 60){
-      subTitleText.text(subtitles[9])
-      rotatingText.text(paragraphs[9]);
+    if (stage < 60) {
+      subTitleText.innerHTML = "No Sleep Till Brooklyn";
+      rotatingText.innerHTML = paragraphs[9];
       
     }
     else if (stage < 90){
-      subTitleText.text(subtitles[10])
-      rotatingText.text(paragraphs[10]);
+      subTitleText.innerHTML = "Offline For The Night...Usually";
+      rotatingText.innerHTML =(paragraphs[10]);
       
     }
     else if (stage < 170){
-      subTitleText.text(subtitles[11])
-      rotatingText.text(paragraphs[11]);
+      subTitleText.innerHTML = "This Is Only Moderately Embarrassing";
+      rotatingText.innerHTML =(paragraphs[11]);
       
     }
     else if (stage < 400){
-      subTitleText.text("Notes and Acknowledgements")
-      rotatingText.text(paragraphs[13]);
+      subTitleText.innerHTML = "Acknowledgements";
+      rotatingText.innerHTML =(paragraphs[13]);
       
     }
     else if (stage < 570){
-      subTitleText.text(subtitles[0])
-      rotatingText.text(paragraphs[0]);
+      subTitleText.innerHTML = "Instructions";
+      rotatingText.innerHTML =(paragraphs[0]);
       
     }
     else if (stage < 600){
-      subTitleText.text(subtitles[1])
-      rotatingText.text(paragraphs[1]);
+      subTitleText.innerHTML = "Barrage Of Morning Messages";
+      rotatingText.innerHTML =(paragraphs[1]);
       
     }
     else if (stage < 660){
-      subTitleText.text(subtitles[2])
-      rotatingText.text(paragraphs[2]);
+      subTitleText.innerHTML = "Trying To Be Productive";
+      rotatingText.innerHTML =(paragraphs[2]);
       
     }
     else if (stage < 780){
-      subTitleText.text("Business As Usual")
-      rotatingText.text(paragraphs[12]);
+      subTitleText.innerHTML =("Business As Usual")
+      rotatingText.innerHTML =(paragraphs[12]);
       
     }
     else if (stage < 990){
-      subTitleText.text(subtitles[3])
-      rotatingText.text(paragraphs[3]);
+      subTitleText.innerHTML = "Peak Internet Usage";
+      rotatingText.innerHTML =(paragraphs[3]);
       
     }
     else if (stage < 1080){
-      subTitleText.text(subtitles[4])
-      rotatingText.text(paragraphs[4]);
+      subTitleText.innerHTML = "Wrapping Up Work";
+      rotatingText.innerHTML =(paragraphs[4]);
       
     }
     else if (stage < 1110){
-      subTitleText.text(subtitles[5])
-      rotatingText.text(paragraphs[5]);
+      subTitleText.innerHTML = "Getting Home";
+      rotatingText.innerHTML =(paragraphs[5]);
       
     }
     else if (stage < 1170){
-      subTitleText.text(subtitles[6])
-      rotatingText.text(paragraphs[6]);
+      subTitleText.innerHTML = "Google Takes The Iron Throne";
+      rotatingText.innerHTML =(paragraphs[6]);
       
     }
     else if (stage < 1320){
-      subTitleText.text(subtitles[7])
-      rotatingText.text(paragraphs[7]);
+      subTitleText.innerHTML = "Prime Social Media Time?";
+      rotatingText.innerHTML =(paragraphs[7]);
       
     }
     else if (stage < 1410){
-      subTitleText.text(subtitles[8])
-      rotatingText.text(paragraphs[8]);
+      subTitleText.innerHTML = "Listening But Not Always Watching";
+      rotatingText.innerHTML =(paragraphs[8]);
       
     }
     else {
-      subTitleText.text(subtitles[9])
-      rotatingText.text(paragraphs[9]);
-      
+      subTitleText.innerHTML = "No Sleep Till Brooklyn";
+      rotatingText.innerHTML =(paragraphs[9]);
     }
     
 

@@ -66,6 +66,18 @@ body {
     background: white;
 }
 
+.row {
+	display: flex;
+}
+
+.column {
+	flex: 50%;
+}
+
+article, p {
+	text-align: left;
+}
+
 #main-wrapper {
 	width: 950px;
 	height: 950px;
@@ -80,6 +92,7 @@ body {
 text {
     font-family: "Arial";
 }
+
 
 
 
